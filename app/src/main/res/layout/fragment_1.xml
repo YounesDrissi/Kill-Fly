@@ -5,12 +5,6 @@
     tools:context="info.androidhive.materialtabs.fragments.OneFragment">
 
 
-    <Button
-        android:id="@+id/buttonHistorique"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Archive"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/buttonTest"/>
+
 
 </RelativeLayout>

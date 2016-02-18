@@ -20,7 +20,6 @@ public class TwoFragment extends Fragment{
 
     public TwoFragment() {
         // Required empty public constructor
-
     }
 
 
