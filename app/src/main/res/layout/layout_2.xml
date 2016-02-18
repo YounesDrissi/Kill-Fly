@@ -26,8 +26,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Serie :"
+        android:layout_marginTop="80dip"
         android:id="@+id/Serie"
-        android:layout_above="@+id/spinnerPoste"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -36,17 +36,16 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:prompt="@string/spinner_title"
-        android:layout_below="@+id/spinnerSite"
+        android:layout_below="@+id/Serie"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"/>
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Poste :"
         android:id="@+id/Poste"
-        android:layout_alignBaseline="@+id/spinnerSerie"
-        android:layout_alignBottom="@+id/spinnerSerie"
+        android:layout_marginTop="150dip"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -55,7 +54,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:prompt="@string/spinner_title"
-        android:layout_below="@+id/spinnerSerie"
+        android:layout_below="@+id/Poste"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
