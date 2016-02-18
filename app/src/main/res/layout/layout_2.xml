@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:padding="10dip"
     android:layout_width="fill_parent"
@@ -9,28 +9,78 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
-        android:text="Category:"
-        android:layout_marginBottom="5dp"/>
+        android:text="Site :"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/Site" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinnerSite"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:prompt="@string/spinner_title"/>
+        android:prompt="@string/spinner_title"
+        android:layout_below="@+id/Site"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-    <Button
-        android:id="@+id/buttonSuivant"
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Suivant"
-        android:layout_="true"/>
+        android:text="Serie :"
+        android:id="@+id/Serie"
+        android:layout_above="@+id/spinnerPoste"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:id="@+id/spinnerSerie"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/spinner_title"
+        android:layout_below="@+id/spinnerSite"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Poste :"
+        android:id="@+id/Poste"
+        android:layout_alignBaseline="@+id/spinnerSerie"
+        android:layout_alignBottom="@+id/spinnerSerie"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:id="@+id/spinnerPoste"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/spinner_title"
+        android:layout_below="@+id/spinnerSerie"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/buttonAjouter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ajouter"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/buttonTest"/>
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="54dp"
+        android:layout_marginEnd="54dp"
+        android:layout_alignTop="@+id/buttonSuivant"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/buttonSuivant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Suivant"
+        android:gravity="bottom|left"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="54dp"
+        android:layout_marginStart="54dp" />
+
+</RelativeLayout>

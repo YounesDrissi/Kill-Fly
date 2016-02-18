@@ -30,19 +30,23 @@ public class ClassFormulaire extends AppCompatActivity  implements OnItemSelecte
             setContentView(R.layout.layout_2);
 
             // Spinner element
-            Spinner spinner = (Spinner) findViewById(R.id.spinner);
+            Spinner spinnerSite = (Spinner) findViewById(R.id.spinnerSite);
+            Spinner spinnerPoste = (Spinner) findViewById(R.id.spinnerSerie);
+            Spinner spinnerSerie = (Spinner) findViewById(R.id.spinnerPoste);
 
             // Spinner click listener
-            spinner.setOnItemSelectedListener(this);
+            spinnerSite.setOnItemSelectedListener(this);
+            spinnerSerie.setOnItemSelectedListener(this);
+            spinnerPoste.setOnItemSelectedListener(this);
 
             // Spinner Drop down elements
             List<String> categories = new ArrayList<String>();
-            categories.add("Automobile");
-            categories.add("Business Services");
-            categories.add("Computers");
-            categories.add("Education");
-            categories.add("Personal");
-            categories.add("Travel");
+            categories.add("Paris");
+            categories.add("Toulouse");
+            categories.add("Lyon");
+            categories.add("Marseille");
+            categories.add("Bordeaux");
+            categories.add("Montpellier");
 
             // Creating adapter for spinner
             ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
@@ -51,7 +55,7 @@ public class ClassFormulaire extends AppCompatActivity  implements OnItemSelecte
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             // attaching data adapter to spinner
-            spinner.setAdapter(dataAdapter);
+            spinnerSite.setAdapter(dataAdapter);
         }
 
         @Override
@@ -63,7 +67,5 @@ public class ClassFormulaire extends AppCompatActivity  implements OnItemSelecte
             Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
         }
         public void onNothingSelected(AdapterView<?> arg0) {
-            // TODO Auto-generated method stub
         }
-
 }
