@@ -24,7 +24,7 @@ public class PremiereActivite extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            Intent intent = new Intent(PremiereActivite.this, ClassFormulaire.class);
+            Intent intent = new Intent(PremiereActivite.this, ClassAjout.class);
             startActivity(intent);
 
         }
