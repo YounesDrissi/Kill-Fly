@@ -3,8 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.abdellah.pcsalon.myapplication.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/ajouterSite"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/ajoutSite"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/ajouterSerie"
+        android:orderInCategory="100"
+        android:title="@string/ajoutSerie"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/ajouterPoste"
+        android:orderInCategory="100"
+        android:title="@string/ajoutPoste"
+        app:showAsAction="never" />
+
 </menu>

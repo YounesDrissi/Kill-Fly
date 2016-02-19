@@ -59,22 +59,22 @@
         android:layout_alignParentStart="true" />
 
     <Button
-        android:id="@+id/buttonAjouter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ajouter"
-        android:layout_gravity="bottom|right"
-        android:layout_marginRight="54dp"
-        android:layout_marginEnd="54dp"
-        android:layout_alignTop="@+id/buttonSuivant"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
         android:id="@+id/buttonSuivant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Suivant"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="54dp"
+        android:layout_marginEnd="54dp"
+        android:layout_alignTop="@+id/buttonAjouter"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/buttonAjouter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ajouter"
         android:gravity="bottom|left"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
