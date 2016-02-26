@@ -13,6 +13,6 @@ public class MockData {
 	private static int generateRandomData()
 	{
 		Random random = new Random();
-		return random.nextInt(40);
+		return random.nextInt(5);
 	}
 }

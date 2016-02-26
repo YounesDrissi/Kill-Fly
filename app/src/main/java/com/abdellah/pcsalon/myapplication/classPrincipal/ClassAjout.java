@@ -10,6 +10,7 @@ import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -77,30 +78,9 @@ public class ClassAjout extends AppCompatActivity {
         serie.add(4);
 
 
-        poste.add(1);
-        poste.add(2);
-        poste.add(3);
-        poste.add(4);
-        poste.add(5);
-        poste.add(6);
-        poste.add(7);
-        poste.add(8);
-        poste.add(9);
-        poste.add(10);
-        poste.add(11);
-        poste.add(12);
-        poste.add(13);
-        poste.add(14);
-        poste.add(15);
-        poste.add(16);
-        poste.add(17);
-        poste.add(18);
-        poste.add(19);
-        poste.add(20);
-        poste.add(21);
-        poste.add(22);
-        poste.add(23);
-        poste.add(24);
+        for(int i=0;i<20;i++)
+            poste.add(i);
+
 
         // Creating adapter for spinner
         dataAdapterSites = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sites);
@@ -116,6 +96,18 @@ public class ClassAjout extends AppCompatActivity {
         spinnerSite.setAdapter(dataAdapterSites);
         spinnerPoste.setAdapter(arrayAdapterPoste);
         spinnerSerie.setAdapter(arrayAdapterSerie);
+
+
+
+        spinnerSerie.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           int arg2, long arg3) {
+                throw new RuntimeException("You long clicked an item!");
+            }
+        });
+
+
+
     }
 
 

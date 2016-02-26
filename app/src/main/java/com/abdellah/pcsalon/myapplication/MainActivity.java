@@ -20,6 +20,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 
+import com.abdellah.pcsalon.myapplication.dynamicGraph.DynamicGraphActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             // Code à éxécuter de façon périodique
 
-            Log.d(TAG, "myRunnable yes...");
+            //Log.d(TAG, "myRunnable yes...");
             update();
             myHandler.postDelayed(this, 10);
             changeLedNotificationColor();
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new OneFragment(),"Chronomètre");
         adapter.addFrag(new TwoFragment(),"Kill-Fly");
-        adapter.addFrag(new ThreeFragment(), "Diagramme");
+        adapter.addFrag(new DynamicGraphActivity(), "Diagramme");
         viewPager.setAdapter(adapter);
     }
 
@@ -135,13 +137,13 @@ public class MainActivity extends AppCompatActivity {
     public void update() {
 
         try {
-            Log.d(TAG, "update yes...");
+          //  Log.d(TAG, "update yes...");
 
             TwoFragment.relativeLayout.getChildAt(1).setY((TwoFragment.relativeLayout.getChildAt(1).getY()+1)%500 );
             TwoFragment.relativeLayout.getChildAt(1).setX((TwoFragment.relativeLayout.getChildAt(1).getX()+1)%500);
-            Log.d(TAG, "update yes...");
+           // Log.d(TAG, "update yes...");
         }catch (Exception e){
-            Log.d(TAG, "update no...");
+          //  Log.d(TAG, "update no...");
             //update();
         }
     }

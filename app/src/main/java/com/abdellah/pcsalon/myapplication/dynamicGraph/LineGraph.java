@@ -1,5 +1,8 @@
 package com.abdellah.pcsalon.myapplication.dynamicGraph;
 
+import android.content.Context;
+import android.graphics.Color;
+
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
@@ -7,11 +10,6 @@ import org.achartengine.model.TimeSeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
-
-
-
-import android.content.Context;
-import android.graphics.Color;
 
 public class LineGraph {
 
@@ -27,17 +25,43 @@ public class LineGraph {
 	{
 		// Add single dataset to multiple dataset
 		mDataset.addSeries(dataset);
-		
-		// Customization time for line 1!
-		renderer.setColor(Color.WHITE);
-		renderer.setPointStyle(PointStyle.SQUARE);
+
+        //
+        //mRenderer.setZoomLimits(new double[]{00, 200, 00, 30});
+        // Customization time for line 1!
+        renderer.setColor(Color.RED);
+		renderer.setPointStyle(PointStyle.DIAMOND);
+        
+        renderer.setChartValuesTextSize(30);
+        renderer.setChartValuesTextSize(30);
 		renderer.setFillPoints(true);
-		
-		// Enable Zoom
+
+        //couleur margin
+        mRenderer.setMarginsColor(Color.BLACK);
+
+        // Enable Zoom
 		mRenderer.setZoomButtonsVisible(true);
-		mRenderer.setXTitle("Day #");
-		mRenderer.setYTitle("CM in Rainfall");
-		
+
+       // mRenderer.setGridColor(Color.RED);
+
+        //rendu des valeurs
+        mRenderer.setYAxisMin(0);
+        mRenderer.setXAxisMin(0);
+        mRenderer.setXAxisMax(20);
+        mRenderer.setYAxisMax(15);
+
+        //
+		mRenderer.setXLabelsColor(Color.RED);
+        mRenderer.setLabelsTextSize(30);
+        mRenderer.setPointSize(20);
+        mRenderer.setGridColor(Color.RED);
+
+		mRenderer.setAxisTitleTextSize(30);
+		mRenderer.setXTitle("Temps");
+		mRenderer.setYTitle("Intensité du vents");
+        mRenderer.setYLabelsColor(0,Color.RED);
+
+
 		// Add single renderer to multiple renderer
 		mRenderer.addSeriesRenderer(renderer);	
 	}
@@ -51,6 +75,7 @@ public class LineGraph {
 	public void addNewPoints(Point p)
 	{
 		dataset.add(p.getX(), p.getY());
+
 	}
 	
 }

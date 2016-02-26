@@ -1,28 +1,32 @@
 package com.abdellah.pcsalon.myapplication.dynamicGraph;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import com.abdellah.pcsalon.myapplication.R;
+import com.abdellah.pcsalon.myapplication.MainActivity;
 
 import org.achartengine.GraphicalView;
 
-public class DynamicGraphActivity extends Activity {
+public class DynamicGraphActivity extends Fragment {
 
 	private static GraphicalView view;
 	private LineGraph line = new LineGraph();
 	private static Thread thread;
 
-	/** Called when the activity is first created. */
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
 
+
+//        view.repaint();
 		thread = new Thread() {
 			public void run()
 			{
-				for (int i = 0; i < 15; i++) 
+				for (int i = 0; i < 100; i++)
 				{
 					try {
 						Thread.sleep(2000);
@@ -39,11 +43,17 @@ public class DynamicGraphActivity extends Activity {
 		thread.start();
 	}
 
+
+
+
 	@Override
-	protected void onStart() {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+							 Bundle savedInstanceState) {
+		// Inflate the layout for this fragment
 		super.onStart();
-		view = line.getView(this);
-		setContentView(view);
+		view = line.getView(MainActivity.contex);
+
+		return view;
 	}
 
 }
