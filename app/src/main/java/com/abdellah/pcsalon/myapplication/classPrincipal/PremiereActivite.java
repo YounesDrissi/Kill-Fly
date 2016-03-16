@@ -65,5 +65,4 @@ public class PremiereActivite extends AppCompatActivity {
         buttonTest.setOnClickListener(clickListenerTest);
         buttonArchive.setOnClickListener(clickListenerArchive);
     }
-
 }
