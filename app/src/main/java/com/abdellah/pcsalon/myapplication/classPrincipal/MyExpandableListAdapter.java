@@ -23,6 +23,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     private final SparseArray<Group> groups;
     public LayoutInflater inflater;
     public Activity activity;
+    boolean longClick=false;
 
     public MyExpandableListAdapter(Activity act, SparseArray<Group> groups) {
         activity = act;
@@ -44,6 +45,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
         final String children = (String) getChild(groupPosition, childPosition);
+
         TextView text = null;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.test3, null);
@@ -53,9 +55,23 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         convertView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("hhhhhhhhhhhhhhhhhhh");
+                if(!longClick) {
+                    System.out.println("hhhhhhhhhhhhhhhhhhh");
+                    Toast.makeText(activity, children,
+                            Toast.LENGTH_SHORT).show();
+                }
+                longClick=false;
+            }
+        });
+        convertView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                System.out.println("lololo");
                 Toast.makeText(activity, children,
                         Toast.LENGTH_SHORT).show();
+                longClick=true;
+                return false;
             }
         });
         return convertView;
@@ -110,6 +126,6 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 }

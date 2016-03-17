@@ -1,39 +1,15 @@
 package com.abdellah.pcsalon.myapplication;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
 
 
 import com.abdellah.pcsalon.myapplication.classPrincipal.Group;
 import com.abdellah.pcsalon.myapplication.classPrincipal.MyExpandableListAdapter;
-import com.abdellah.pcsalon.myapplication.classPrincipal.MyList;
-import com.abdellah.pcsalon.myapplication.dynamicGraph.DynamicGraphActivity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ArrayList;
-
-import android.app.Activity;
-import android.os.Bundle;
 import android.util.SparseArray;
-import android.view.Menu;
 import android.widget.ExpandableListView;
+
 public class MainActivity extends AppCompatActivity {
     SparseArray<Group> groups = new SparseArray<Group>();
 
@@ -43,10 +19,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.test);
         createData();
         ExpandableListView listView = (ExpandableListView) findViewById(R.id.listView);
-        listView.setOnItemLongClickListener(new MyList());
+
         MyExpandableListAdapter adapter = new MyExpandableListAdapter(this,
                 groups);
-        adapter.getChildView();
         listView.setAdapter(adapter);
     }
 
