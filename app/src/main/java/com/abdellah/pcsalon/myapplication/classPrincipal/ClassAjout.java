@@ -50,6 +50,7 @@ public class ClassAjout extends AppCompatActivity {
         setContentView(R.layout.formulaire_ajout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Elements de spinner
         spinnerSite = (Spinner) findViewById(R.id.spinnerSite);
@@ -63,7 +64,6 @@ public class ClassAjout extends AppCompatActivity {
 
         addListenerOnSpinnerItemSelection();
 
-
         sites.add("Paris");
         sites.add("Toulouse");
         sites.add("Lyon");
@@ -71,14 +71,10 @@ public class ClassAjout extends AppCompatActivity {
         sites.add("Bordeaux");
         sites.add("Montpellier");
 
+        for(int i=0;i<5;i++)
+            serie.add(i);
 
-        serie.add(1);
-        serie.add(2);
-        serie.add(3);
-        serie.add(4);
-
-
-        for(int i=0;i<20;i++)
+        for(int i=0;i<31;i++)
             poste.add(i);
 
 
@@ -125,29 +121,6 @@ public class ClassAjout extends AppCompatActivity {
         spinnerSite.setOnItemSelectedListener(new SiteClass());
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        switch (id){
-            case R.id.ajouterPoste:
-                ajouterPoste();
-                return true;
-            case R.id.ajouterSerie:
-                ajouterSerie();
-                return true;
-            case R.id.ajouterSite:
-                ajouterSite();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     private void ajouterSerie() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Série");
@@ -161,7 +134,7 @@ public class ClassAjout extends AppCompatActivity {
         builder.setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                serieAjoute =Integer.parseInt(input.getText().toString());
+                serieAjoute = Integer.parseInt(input.getText().toString());
                 serie.add(serieAjoute);
 
             }
@@ -246,4 +219,24 @@ public class ClassAjout extends AppCompatActivity {
 
         }
     };
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+            case R.id.ajouterPoste:
+                ajouterPoste();
+                return true;
+            case R.id.ajouterSerie:
+                ajouterSerie();
+                return true;
+            case R.id.ajouterSite:
+                ajouterSite();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
