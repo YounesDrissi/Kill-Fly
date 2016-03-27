@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 
@@ -34,12 +33,12 @@ public class TwoFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        relativeLayout=new RelativeLayout(getActivity());
+      /*  relativeLayout=new RelativeLayout(getActivity());
         //relativeLayout.addChildrenForAccessibility(new ArrayList<View>(2).add(0,new ImageView(R.mipmap.cible)));
         ImageView iCible=new ImageView(getActivity());
         ImageView iReticule=new ImageView(getActivity());
 
-        iCible.setImageResource(R.mipmap.cible);
+        iCible.setImageResource(R.mipmap.client_cible);
         iReticule.setImageResource(R.mipmap.reticule);
 
         iCible.setLayoutParams(new RelativeLayout.LayoutParams(
@@ -56,9 +55,9 @@ public class TwoFragment extends Fragment{
         relativeLayout.addView(iReticule);
 
 
-
+        */
        // relativeLayout.addChildrenForAccessibility((((new ArrayList<View>(2)).add(0,iCible)).add(1,iReticule)));
-        return relativeLayout;
+        return inflater.inflate(R.layout.fragment_3, container, false);
     }
 
     @Override

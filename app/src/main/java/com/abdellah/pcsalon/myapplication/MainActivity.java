@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.graphics.Color;
+import android.inputmethodservice.ExtractEditText;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -17,8 +18,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 
 import com.abdellah.pcsalon.myapplication.dynamicGraph.DynamicGraphActivity;
 
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             //Log.d(TAG, "myRunnable yes...");
             update();
             myHandler.postDelayed(this, 10);
-            changeLedNotificationColor();
+           // changeLedNotificationColor();
         }
     };
 
@@ -135,12 +136,29 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void update() {
-
+        //hight,y=946;with,x=1248
         try {
           //  Log.d(TAG, "update yes...");
-
-            TwoFragment.relativeLayout.getChildAt(1).setY((TwoFragment.relativeLayout.getChildAt(1).getY()+1)%500 );
-            TwoFragment.relativeLayout.getChildAt(1).setX((TwoFragment.relativeLayout.getChildAt(1).getX()+1)%500);
+            ImageView v= (ImageView) findViewById(R.id.reticule_client);
+            //v.setX((v.getX() + 1) % 500);
+            //v.setY((v.getY() + 1) % 500);
+            //v.setX();
+            float diference=(((ImageView) findViewById(R.id.reticule_client)).getWidth()-26)/2;
+            diference=0;
+            float xR=(((ImageView) findViewById(R.id.reticule_client)).getWidth()/2)-diference;
+            float yR=(((ImageView) findViewById(R.id.reticule_client)).getHeight()/2)-diference;
+            float x=((ImageView) findViewById(R.id.client_cible)).getWidth()/2
+                        -xR;
+            float y=((ImageView) findViewById(R.id.client_cible)).getHeight()/2
+                        -yR;
+            v.setX(130-xR);
+            v.setY(y-yR);
+            //TwoFragment.relativeLayout.getChildAt(1).setY((TwoFragment.relativeLayout.getChildAt(1).getY() + 1) % 500);
+            //TwoFragment.relativeLayout.getChildAt(1).setX((TwoFragment.relativeLayout.getChildAt(1).getX()+1)%500);
+            ExtractEditText t=(ExtractEditText) findViewById((R.id.extractEditText));
+            t.setText("x :"+v.getX()+", y :"+v.getY()+"; withe :"+((ImageView) findViewById(R.id.client_cible)).getWidth()
+            +", height : "+((ImageView) findViewById(R.id.client_cible)).getHeight()
+            +"; taileRX:"+(xR)+", tailleRy:"+(yR)+", dife:"+diference);
            // Log.d(TAG, "update yes...");
         }catch (Exception e){
           //  Log.d(TAG, "update no...");
