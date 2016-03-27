@@ -34,7 +34,6 @@ public void onCreate(Bundle savedInstanceState) {
 
         // Spinner click listener
         addListenerOnSpinnerItemSelection();
-
         // Spinner Drop down elements
         List<String> sites = new ArrayList<String>();
         sites.add("Paris");
