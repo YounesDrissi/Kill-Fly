@@ -1,9 +1,6 @@
 package com.abdellah.pcsalon.myapplication;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.Context;
-import android.graphics.Color;
 import android.inputmethodservice.ExtractEditText;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +25,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
     private static final String TAG ="MainActivity" ;
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -36,11 +35,6 @@ public class MainActivity extends AppCompatActivity {
     public static Context contex;
 
 
-    private int[] tabIcons = {
-            R.mipmap.reticule,
-            R.mipmap.reticule,
-            R.mipmap.reticule
-    };
 
     private Handler myHandler;
     private Runnable myRunnable = new Runnable() {
@@ -51,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
             //Log.d(TAG, "myRunnable yes...");
             update();
             myHandler.postDelayed(this, 10);
+
            // changeLedNotificationColor();
+
         }
     };
 
@@ -133,8 +129,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
     public void update() {
         //hight,y=946;with,x=1248
         try {
@@ -166,30 +160,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void changeLedNotificationColor(){
-
-        if(TwoFragment.relativeLayout.getChildAt(1).getX()<100) {
-
-            NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            Notification notif = new Notification();
-            notif.ledARGB = Color.GREEN;
-            notif.flags = Notification.FLAG_SHOW_LIGHTS;
-            notif.ledOnMS = 100;
-            notif.ledOffMS = 100;
-            nm.notify(1, notif);
-        }
-        else
-        {
-            NotificationManager nm = ( NotificationManager ) getSystemService( NOTIFICATION_SERVICE );
-            Notification notif = new Notification();
-            notif.ledARGB = Color.BLUE;
-            notif.flags = Notification.FLAG_SHOW_LIGHTS;
-            notif.ledOnMS = 100;
-            notif.ledOffMS = 100;
-            nm.notify(1, notif);
-        }
-
-    }
     @Override
     public void onDestroy() {
         Log.d(TAG, "Destroying...");

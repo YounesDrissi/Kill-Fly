@@ -33,8 +33,12 @@ public class TwoFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+
       /*  relativeLayout=new RelativeLayout(getActivity());
         //relativeLayout.addChildrenForAccessibility(new ArrayList<View>(2).add(0,new ImageView(R.mipmap.cible)));
+=======
+        relativeLayout=new RelativeLayout(getActivity());
+>>>>>>> eae607d0857ac7e65ebb382062d3167bf80d3b96
         ImageView iCible=new ImageView(getActivity());
         ImageView iReticule=new ImageView(getActivity());
 
@@ -49,15 +53,15 @@ public class TwoFragment extends Fragment{
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT));
 
-
-
         relativeLayout.addView(iCible);
         relativeLayout.addView(iReticule);
+<<<<<<< HEAD
 
 
         */
        // relativeLayout.addChildrenForAccessibility((((new ArrayList<View>(2)).add(0,iCible)).add(1,iReticule)));
         return inflater.inflate(R.layout.fragment_3, container, false);
+
     }
 
     @Override
@@ -71,5 +75,4 @@ public class TwoFragment extends Fragment{
         Log.d(TAG, "Stopping...");
         super.onStop();
     }
-
 }
