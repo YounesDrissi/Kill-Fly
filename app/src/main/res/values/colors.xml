@@ -8,5 +8,7 @@
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
+    <color name="jaune">#FFFF00</color>
     <color name="colorAccent">#c8e8ff</color>
+    <color name="bleu">#3E38F3</color>
 </resources>

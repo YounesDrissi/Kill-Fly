@@ -1,4 +1,4 @@
-package com.abdellah.pcsalon.myapplication.classPrincipal;
+package com.abdellah.pcsalon.myapplication.ListesSSP;
 
 import android.widget.BaseExpandableListAdapter;
 import android.app.Activity;
@@ -11,19 +11,21 @@ import android.widget.CheckedTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.abdellah.pcsalon.myapplication.ListesSSP.Groupe;
 import com.abdellah.pcsalon.myapplication.R;
+import com.abdellah.pcsalon.myapplication.classPrincipal.ClassAjout;
 
 /**
  * Created by Younes on 16/03/2016.
  */
-public class MyExpandableListAdapter extends BaseExpandableListAdapter {
+public class MyExpandableListSiteAdapter extends BaseExpandableListAdapter {
 
     private final SparseArray<Groupe> groups;
     public LayoutInflater inflater;
     public Activity activity;
     private boolean longClick=false;
 
-    public MyExpandableListAdapter(Activity act, SparseArray<Groupe> groups) {
+    public MyExpandableListSiteAdapter(Activity act, SparseArray<Groupe> groups) {
         activity = act;
         this.groups = groups;
         inflater = act.getLayoutInflater();
@@ -31,7 +33,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return groups.get(groupPosition).children.get(childPosition);
+        return groups.get(groupPosition).series.get(childPosition);
     }
 
     @Override
@@ -42,7 +44,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        final String children = (String) getChild(groupPosition, childPosition);
+        final int children = (int) getChild(groupPosition, childPosition);
 
         TextView text = null;
         if (convertView == null) {
@@ -66,8 +68,6 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public boolean onLongClick(View v) {
 
-
-                System.out.println("lololo");
                 Toast.makeText(activity, children,
                         Toast.LENGTH_SHORT).show();
                 longClick = true;
@@ -80,7 +80,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return groups.get(groupPosition).children.size();
+        return groups.get(groupPosition).series.size();
     }
 
     @Override

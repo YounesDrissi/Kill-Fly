@@ -16,6 +16,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 
+import com.abdellah.pcsalon.myapplication.ListesSSP.Groupe;
+import com.abdellah.pcsalon.myapplication.ListesSSP.MyExpandableListAdapter;
+import com.abdellah.pcsalon.myapplication.ListesSSP.MyExpandableListSiteAdapter;
 import com.abdellah.pcsalon.myapplication.MainActivity;
 import com.abdellah.pcsalon.myapplication.R;
 
@@ -54,11 +57,16 @@ public class ClassAjout extends AppCompatActivity {
         spinnerPoste = (Spinner) findViewById(R.id.spinnerPoste);
 */
         createDataSite();
+        createDataSerie();
 
-        ExpandableListView listView = (ExpandableListView) findViewById(R.id.listeSite);
-        registerForContextMenu(listView);
-        MyExpandableListAdapter adapter = new MyExpandableListAdapter(this, groups);
-        listView.setAdapter(adapter);
+        ExpandableListView listSite = (ExpandableListView) findViewById(R.id.listeSite);
+        ExpandableListView listSerie = (ExpandableListView) findViewById(R.id.listeSerie);
+        registerForContextMenu(listSite);
+        //registerForContextMenu(listSerie);
+        MyExpandableListAdapter adapterSite = new MyExpandableListAdapter(this, groups);
+        MyExpandableListSiteAdapter adapterSerie=new MyExpandableListSiteAdapter(this,groups);
+        listSite.setAdapter(adapterSite);
+        listSerie.setAdapter(adapterSerie);
         buttonSuivant =(Button)findViewById(R.id.buttonSuivant);
         buttonSuivant.setOnClickListener(clickListenerSuivant);
 
@@ -234,13 +242,18 @@ public class ClassAjout extends AppCompatActivity {
         return true;
     }
     public void createDataSite() {
-
         Groupe group = new Groupe("Site ");
-        group.children.add("Paris");
-        group.children.add("Toulouse");
-        group.children.add("Toulouse");
-        groups.append(1, group);
+        group.sites.add("Paris");
+        group.sites.add("Toulouse");
+        group.sites.add("Toulouse");
+        groups.append(0, group);
+    }
 
+    public void createDataSerie() {
+        Groupe group = new Groupe("Série ");
+        for(int i=1;i<4;i++)
+            group.series.add(i);
+        groups.append(1, group);
     }
 
     public void onCreateContextMenu(ContextMenu menu, View v,ContextMenu.ContextMenuInfo menuInfo) {
