@@ -1,10 +1,17 @@
 package com.abdellah.pcsalon.myapplication;
 
 import android.content.Context;
+<<<<<<< HEAD
 import android.inputmethodservice.ExtractEditText;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
+=======
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.TabLayout;
+
+>>>>>>> YounesBr
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -20,11 +27,27 @@ import android.widget.TextView;
 
 import com.abdellah.pcsalon.myapplication.dynamicGraph.DynamicGraphActivity;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+=======
+import com.abdellah.pcsalon.myapplication.dynamicGraph.DynamicGraphActivity;
+
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+>>>>>>> YounesBr
 
 
     private static final String TAG ="MainActivity" ;
@@ -184,8 +207,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -200,4 +221,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> YounesBr
 }

@@ -1,6 +1,5 @@
 package com.abdellah.pcsalon.myapplication.classPrincipal;
 
-import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.app.Activity;
 import android.util.SparseArray;
@@ -8,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,12 +18,12 @@ import com.abdellah.pcsalon.myapplication.R;
  */
 public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
-    private final SparseArray<Group> groups;
+    private final SparseArray<Groupe> groups;
     public LayoutInflater inflater;
     public Activity activity;
-    boolean longClick=false;
+    private boolean longClick=false;
 
-    public MyExpandableListAdapter(Activity act, SparseArray<Group> groups) {
+    public MyExpandableListAdapter(Activity act, SparseArray<Groupe> groups) {
         activity = act;
         this.groups = groups;
         inflater = act.getLayoutInflater();
@@ -55,22 +53,25 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         convertView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!longClick) {
+                if (!longClick) {
                     System.out.println("hhhhhhhhhhhhhhhhhhh");
                     Toast.makeText(activity, children,
                             Toast.LENGTH_SHORT).show();
                 }
-                longClick=false;
+                longClick = false;
             }
         });
+
         convertView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
 
+
                 System.out.println("lololo");
                 Toast.makeText(activity, children,
                         Toast.LENGTH_SHORT).show();
-                longClick=true;
+                longClick = true;
+                ClassAjout.setLongclick(true);
                 return false;
             }
         });
@@ -113,7 +114,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.test2, null);
         }
-        Group group = (Group) getGroup(groupPosition);
+        Groupe group = (Groupe) getGroup(groupPosition);
         ((CheckedTextView) convertView).setText(group.string);
         ((CheckedTextView) convertView).setChecked(isExpanded);
         return convertView;

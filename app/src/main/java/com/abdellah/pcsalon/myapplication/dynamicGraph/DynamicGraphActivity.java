@@ -55,5 +55,8 @@ public class DynamicGraphActivity extends Fragment {
 
 		return view;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> YounesBr
 }
