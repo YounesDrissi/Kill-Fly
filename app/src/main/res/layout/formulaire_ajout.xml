@@ -38,60 +38,27 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="110dip"
-        android:text="Site :"
-        android:layout_marginBottom="5dp"
-        android:id="@+id/Site" />
 
-    <Spinner
-        android:id="@+id/spinnerSite"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:prompt="@string/spinner_title"
-        android:layout_below="@+id/Site"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <ExpandableListView
+            android:id="@+id/listeSite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+        </ExpandableListView>
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Serie :"
-        android:layout_marginTop="180dip"
-        android:id="@+id/Serie"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <ExpandableListView
+            android:id="@+id/listeSerie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+        </ExpandableListView>
 
-    <Spinner
-        android:id="@+id/spinnerSerie"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:prompt="@string/spinner_title"
-        android:layout_below="@+id/Serie"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Poste :"
-        android:id="@+id/Poste"
-        android:layout_marginTop="250dip"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Spinner
-        android:id="@+id/spinnerPoste"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:prompt="@string/spinner_title"
-        android:layout_below="@+id/Poste"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-
+         <ExpandableListView
+            android:id="@+id/listePoste"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+        </ExpandableListView>
 
 </RelativeLayout>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -105,7 +72,7 @@
             android:id="@+id/buttonSuivant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Suivant"
+            android:text="@string/suivant"
             android:layout_gravity="bottom|right"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"

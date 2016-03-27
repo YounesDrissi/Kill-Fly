@@ -1,39 +1,32 @@
 package com.abdellah.pcsalon.myapplication;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.TabLayout;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 
-import com.abdellah.pcsalon.myapplication.classPrincipal.Group;
-import com.abdellah.pcsalon.myapplication.classPrincipal.MyExpandableListAdapter;
+import com.abdellah.pcsalon.myapplication.dynamicGraph.DynamicGraphActivity;
 
-import android.util.SparseArray;
-import android.widget.ExpandableListView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    SparseArray<Group> groups = new SparseArray<Group>();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.test);
-        createData();
-        ExpandableListView listView = (ExpandableListView) findViewById(R.id.listView);
 
-        MyExpandableListAdapter adapter = new MyExpandableListAdapter(this,
-                groups);
-        listView.setAdapter(adapter);
-    }
-
-    public void createData() {
-        for (int j = 0; j < 5; j++) {
-            Group group = new Group("Test " + j);
-            for (int i = 0; i < 5; i++) {
-                group.children.add("Sub Item" + i);
-            }
-            groups.append(j, group);
-        }
-    }/*
     private static final String TAG ="MainActivity" ;
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -176,8 +169,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -192,5 +183,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
-}*/
+
+
+
 }

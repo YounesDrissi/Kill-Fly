@@ -19,8 +19,6 @@ import java.util.List;
 public class HisoriqueFormulaire  extends AppCompatActivity {
 
 
-
-
     private Spinner spinnerHistorique;
 
     public static View viewContainer;
