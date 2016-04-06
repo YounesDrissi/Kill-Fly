@@ -4,6 +4,7 @@ import android.content.Context;
 import android.inputmethodservice.ExtractEditText;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +78,25 @@ public class MainActivity extends AppCompatActivity {
 
         myHandler = new Handler();
         myHandler.postDelayed(myRunnable,10); // on redemande toute les 500ms
+
+
+        //ajaouter listner chrono
+        final Chronometer myChronometer = (Chronometer)findViewById(R.id.chronometer);
+        Button buttonStart = (Button)findViewById(R.id.start_button);
+        buttonStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((Chronometer) v.findViewById(R.id.chronometer)).start();
+            }
+        });
+        Button buttonStop = (Button)findViewById(R.id.stop_button);
+        buttonStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((Chronometer) v.findViewById(R.id.chronometer)).stop();
+            }
+        });
+        Button buttonReset = (Button)findViewById(R.id.reset_button);
 
 
     }
@@ -158,6 +182,16 @@ public class MainActivity extends AppCompatActivity {
           //  Log.d(TAG, "update no...");
             //update();
         }
+    }
+
+
+
+    public void stopButton(View view) {
+        ((Chronometer) view.findViewById(R.id.chronometer)).stop();
+    }
+
+    public void resetButton(View view) {
+        ((Chronometer) view.findViewById(R.id.chronometer)).setBase(SystemClock.elapsedRealtime());
     }
 
     @Override

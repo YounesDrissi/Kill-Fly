@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.abdellah.pcsalon.myapplication.MainActivity;
 import com.abdellah.pcsalon.myapplication.R;
+import com.abdellah.pcsalon.myapplication.gestionListeSpinner.AndroidSpinnerExampleActivity;
 
 /**
  * Created by Younes on 31/01/2016.
@@ -24,7 +25,7 @@ public class PremiereActivite extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            Intent intent = new Intent(PremiereActivite.this, ClassAjout.class);
+            Intent intent = new Intent(PremiereActivite.this, AndroidSpinnerExampleActivity.class);
             startActivity(intent);
 
         }
