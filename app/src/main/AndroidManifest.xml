@@ -10,13 +10,18 @@
         android:theme="@style/MyMaterialTheme">
 
         <activity
-            android:name=".classPrincipal.PremiereActivite"
+            android:name=".TestBl2.ListActivity"
             android:label="@string/app_name"
             android:theme="@style/MyMaterialTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".bleutooth.Activite1"
+            android:label="@string/app_name">
         </activity>
 
         <activity
@@ -28,8 +33,12 @@
 
             android:name=".classPrincipal.HisoriqueFormulaire"
             android:label="@string/app_name">
-        </activity
-        >
+        </activity>
+        <activity
+
+            android:name=".bleutooth.test"
+            android:label="@string/app_name">
+        </activity>
         <activity
             android:name=".classPrincipal.ClassAjout"
             android:label="@string/app_name">

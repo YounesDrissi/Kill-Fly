@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.abdellah.pcsalon.myapplication.MainActivity;
 import com.abdellah.pcsalon.myapplication.R;
+import com.abdellah.pcsalon.myapplication.bleutooth.test;
 
 /**
  * Created by Younes on 31/01/2016.
@@ -20,15 +21,46 @@ public class PremiereActivite extends AppCompatActivity {
     Button buttonArchive=null;
 
 
-    private View.OnClickListener clickListenercOMMENCER=new View.OnClickListener() {
+   /* private View.OnClickListener clickListenercOMMENCER=new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
-            Intent intent = new Intent(PremiereActivite.this, ClassAjout.class);
+            Intent intent = new Intent(PremiereActivite.this, test.class);
             startActivity(intent);
 
         }
     };
+
+
+    private View.OnClickListener clickListenerTest=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            Intent intent = new Intent(PremiereActivite.this, MainActivity.class);
+            startActivity(intent);
+
+        }
+    };
+
+    private View.OnClickListener clickListenerArchive=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            Intent intent = new Intent(PremiereActivite.this, HisoriqueFormulaire.class);
+            startActivity(intent);
+
+        }
+    };
+*/
+   private View.OnClickListener clickListenercOMMENCER=new View.OnClickListener() {
+       @Override
+       public void onClick(View v) {
+
+           Intent intent = new Intent(PremiereActivite.this, ClassAjout.class);
+           startActivity(intent);
+
+       }
+   };
 
 
     private View.OnClickListener clickListenerTest=new View.OnClickListener() {

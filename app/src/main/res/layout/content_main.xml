@@ -32,4 +32,9 @@
         android:text="@string/consulterArchive"
         android:layout_centerInParent="true"
         android:layout_below="@+id/buttonTest"/>
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Hello" />
 </RelativeLayout>

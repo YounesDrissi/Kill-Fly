@@ -19,8 +19,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -32,6 +30,7 @@ import com.abdellah.pcsalon.myapplication.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Younes on 19/02/2016.
@@ -47,6 +46,7 @@ public class ClassAjout extends AppCompatActivity {
     private String siteAjoute="";
     private int posteAjoute;
     private int serieAjoute;
+    private final static int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
 
     private List<String> sites = new ArrayList<String>();
     private List<Integer> serie = new ArrayList<Integer>();
@@ -138,28 +138,40 @@ public class ClassAjout extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             Log.i("INFO", "Bluetooth available");
         }
-        private final static int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
-        ….;
+
         if (!bluetoothAdapter.isEnabled()) {
             Intent enableBlueTooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBlueTooth, REQUEST_CODE_ENABLE_BLUETOOTH);
         }
-        if (!bluetoothAdapter.isEnabled()) {
-            bluetoothAdapter.enable();
 
-        }
         super.onStart();
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode != REQUEST_CODE_ENABLE_BLUETOOTH)
+            return;
+        if (resultCode == RESULT_OK) {
+
+            // L'utilisation a activé le bluetooth
+        } else {
+            // L'utilisation n'a pas activé le bluetooth
+        }
     }
 
     private final BroadcastReceiver bluetoothReceiver = new BroadcastReceiver() {
+
         public void onReceive(Context context, Intent intent) {
+            System.out.println("in BroadcastReceveir");
             String action = intent.getAction();
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                System.out.println("in if");
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 Toast.makeText(ClassAjout.this, "New Device = " + device.getName(), Toast.LENGTH_SHORT).show();
             }
         }
     };
+
 
     @Override
     protected void onDestroy() {
@@ -267,8 +279,10 @@ public class ClassAjout extends AppCompatActivity {
         public void onClick(View v) {
             Toast.makeText(ClassAjout.this, "searching...",
                     Toast.LENGTH_SHORT).show();
+            Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
             Log.i("INFO", "searching...");
             bluetoothAdapter.startDiscovery();
+
             Intent intent = new Intent(ClassAjout.this, MainActivity.class);
             startActivity(intent);
 
