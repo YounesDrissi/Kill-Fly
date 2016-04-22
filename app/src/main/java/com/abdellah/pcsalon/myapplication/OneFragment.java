@@ -9,12 +9,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 
+import com.abdellah.pcsalon.myapplication.chrono.Cercle;
+
 public class OneFragment extends Fragment  {
 
 
 
     static Chronometer focus;
     Button start, stop, restart;
+    private static Cercle cercle;
+
+    public static Cercle getCercle() {
+        return cercle;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -23,7 +31,7 @@ public class OneFragment extends Fragment  {
         start = (Button) rootView.findViewById(R.id.start_button);
         stop = (Button) rootView.findViewById(R.id.stop_button);
         restart = (Button) rootView.findViewById(R.id.reset_button);
-
+        cercle=(Cercle) rootView.findViewById(R.id.cercle);
         focus = (Chronometer) rootView.findViewById(R.id.chronometer);
 
         start.setOnClickListener(new Button.OnClickListener() {
@@ -57,6 +65,9 @@ public class OneFragment extends Fragment  {
                 focus.setBase(SystemClock.elapsedRealtime());
             }
         });
+
+
+
 
         return rootView;
     }
