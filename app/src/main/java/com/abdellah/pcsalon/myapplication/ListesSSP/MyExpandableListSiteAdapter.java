@@ -1,6 +1,5 @@
-package com.abdellah.pcsalon.myapplication.classPrincipal;
+package com.abdellah.pcsalon.myapplication.ListesSSP;
 
-import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.app.Activity;
 import android.util.SparseArray;
@@ -8,24 +7,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.abdellah.pcsalon.myapplication.ListesSSP.Groupe;
 import com.abdellah.pcsalon.myapplication.R;
+import com.abdellah.pcsalon.myapplication.classPrincipal.ClassAjout;
 
 /**
  * Created by Younes on 16/03/2016.
  */
-public class MyExpandableListAdapter extends BaseExpandableListAdapter {
+public class MyExpandableListSiteAdapter extends BaseExpandableListAdapter {
 
-    private final SparseArray<Group> groups;
+    private final SparseArray<Groupe> groups;
     public LayoutInflater inflater;
     public Activity activity;
-    boolean longClick=false;
+    private boolean longClick=false;
 
-    public MyExpandableListAdapter(Activity act, SparseArray<Group> groups) {
+    public MyExpandableListSiteAdapter(Activity act, SparseArray<Groupe> groups) {
         activity = act;
         this.groups = groups;
         inflater = act.getLayoutInflater();
@@ -33,7 +33,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return groups.get(groupPosition).children.get(childPosition);
+        return groups.get(groupPosition).series.get(childPosition);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        final String children = (String) getChild(groupPosition, childPosition);
+        final int children = (int) getChild(groupPosition, childPosition);
 
         TextView text = null;
         if (convertView == null) {
@@ -55,22 +55,23 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         convertView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!longClick) {
+                if (!longClick) {
                     System.out.println("hhhhhhhhhhhhhhhhhhh");
                     Toast.makeText(activity, children,
                             Toast.LENGTH_SHORT).show();
                 }
-                longClick=false;
+                longClick = false;
             }
         });
+
         convertView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
 
-                System.out.println("lololo");
                 Toast.makeText(activity, children,
                         Toast.LENGTH_SHORT).show();
-                longClick=true;
+                longClick = true;
+                ClassAjout.setLongclick(true);
                 return false;
             }
         });
@@ -79,7 +80,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return groups.get(groupPosition).children.size();
+        return groups.get(groupPosition).series.size();
     }
 
     @Override
@@ -113,7 +114,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.test2, null);
         }
-        Group group = (Group) getGroup(groupPosition);
+        Groupe group = (Groupe) getGroup(groupPosition);
         ((CheckedTextView) convertView).setText(group.string);
         ((CheckedTextView) convertView).setChecked(isExpanded);
         return convertView;

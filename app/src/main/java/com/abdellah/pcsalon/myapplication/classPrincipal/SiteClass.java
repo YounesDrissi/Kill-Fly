@@ -16,6 +16,7 @@ public class SiteClass implements AdapterView.OnItemSelectedListener {
                 Toast.LENGTH_SHORT).show();
     }
 
+
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 

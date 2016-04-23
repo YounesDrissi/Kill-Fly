@@ -1,7 +1,11 @@
 package com.abdellah.pcsalon.myapplication;
 
 import android.content.Context;
+<<<<<<< HEAD
 import android.graphics.Color;
+=======
+
+>>>>>>> d474977a49850a26ce5e8c29c977505975ffc669
 import android.inputmethodservice.ExtractEditText;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,11 +25,11 @@ import android.widget.TextView;
 
 import com.abdellah.pcsalon.myapplication.dynamicGraph.DynamicGraphActivity;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
 
 
     private static final String TAG ="MainActivity" ;
@@ -249,8 +253,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -265,4 +267,5 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
+
 }

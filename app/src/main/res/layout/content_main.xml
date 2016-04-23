@@ -16,20 +16,20 @@
         android:id="@+id/buttonEntrer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Commencer"
+        android:text="@string/commencerPartie"
         android:layout_centerInParent="true"/>
     <Button
         android:id="@+id/buttonTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Test"
+        android:text="@string/démo"
         android:layout_centerInParent="true"
         android:layout_below="@+id/buttonEntrer"/>
     <Button
         android:id="@+id/buttonHistorique"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Archive"
+        android:text="@string/consulterArchive"
         android:layout_centerInParent="true"
         android:layout_below="@+id/buttonTest"/>
 </RelativeLayout>

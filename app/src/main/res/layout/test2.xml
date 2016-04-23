@@ -7,7 +7,11 @@
     android:layout_marginLeft="8dp"
     android:gravity="left"
     android:paddingLeft="32dp"
-    android:paddingTop="8dp"
+    android:paddingTop="50dp"
     android:text="Test"
-    android:textSize="14sp"
-    android:textStyle="bold" />
+    android:textSize="17sp"
+    android:textStyle="normal"
+    android:textColor="@color/bleu"
+    />
+
+

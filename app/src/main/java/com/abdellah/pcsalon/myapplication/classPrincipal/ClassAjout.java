@@ -7,15 +7,26 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.SparseArray;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.ExpandableListView;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.abdellah.pcsalon.myapplication.ListesSSP.Groupe;
+import com.abdellah.pcsalon.myapplication.ListesSSP.MyExpandableListAdapter;
+import com.abdellah.pcsalon.myapplication.ListesSSP.MyExpandableListSiteAdapter;
 import com.abdellah.pcsalon.myapplication.MainActivity;
 import com.abdellah.pcsalon.myapplication.R;
 
@@ -27,8 +38,11 @@ import java.util.List;
  */
 public class ClassAjout extends AppCompatActivity {
 
+    BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-    private Spinner spinnerSite,spinnerSerie,spinnerPoste;
+    private SparseArray<Groupe> groups = new SparseArray<Groupe>();
+    private static Boolean longClick=false;
+
     private Button buttonSuivant;
     private String siteAjoute="";
     private int posteAjoute;
@@ -38,12 +52,6 @@ public class ClassAjout extends AppCompatActivity {
     private List<Integer> serie = new ArrayList<Integer>();
     private List<Integer> poste = new ArrayList<Integer>();
 
-    private ArrayAdapter<String> dataAdapterSites ;
-    private ArrayAdapter<Integer> arrayAdapterSerie;
-    private ArrayAdapter<Integer> arrayAdapterPoste;
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,19 +60,30 @@ public class ClassAjout extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Elements de spinner
+
+        /*// Elements de spinner
         spinnerSite = (Spinner) findViewById(R.id.spinnerSite);
         spinnerSerie = (Spinner) findViewById(R.id.spinnerSerie);
         spinnerPoste = (Spinner) findViewById(R.id.spinnerPoste);
+*/
+        createDataSite();
+        createDataSerie();
 
-
+        ExpandableListView listSite = (ExpandableListView) findViewById(R.id.listeSite);
+        ExpandableListView listSerie = (ExpandableListView) findViewById(R.id.listeSerie);
+        registerForContextMenu(listSite);
+        //registerForContextMenu(listSerie);
+        MyExpandableListAdapter adapterSite = new MyExpandableListAdapter(this, groups);
+        MyExpandableListSiteAdapter adapterSerie=new MyExpandableListSiteAdapter(this,groups);
+        listSite.setAdapter(adapterSite);
+        listSerie.setAdapter(adapterSerie);
         buttonSuivant =(Button)findViewById(R.id.buttonSuivant);
         buttonSuivant.setOnClickListener(clickListenerSuivant);
 
 
-        addListenerOnSpinnerItemSelection();
+        //addListenerOnSpinnerItemSelection();
 
-        sites.add("Paris");
+        /*sites.add("Paris");
         sites.add("Toulouse");
         sites.add("Lyon");
         sites.add("Marseille");
@@ -93,33 +112,66 @@ public class ClassAjout extends AppCompatActivity {
         spinnerPoste.setAdapter(arrayAdapterPoste);
         spinnerSerie.setAdapter(arrayAdapterSerie);
 
-
-
         spinnerSerie.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                            int arg2, long arg3) {
                 throw new RuntimeException("You long clicked an item!");
             }
-        });
-
-
-
+        });*/
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-
-    public void addListenerOnSpinnerItemSelection() {
+   /* public void addListenerOnSpinnerItemSelection() {
         spinnerPoste.setOnItemSelectedListener(new PosteClass());
         spinnerSerie.setOnItemSelectedListener(new SerieClass());
         spinnerSite.setOnItemSelectedListener(new SiteClass());
+    }*/
+
+    @Override
+    protected void onStart() {
+        Log.i("", "onStart");
+        if (bluetoothAdapter == null) {
+            Toast.makeText(ClassAjout.this,
+                    "Pas de Bluetooth", Toast.LENGTH_SHORT).show();
+            Log.e("ERROR", "No Bluetooth devices");
+        } else {
+            Toast.makeText(ClassAjout.this, "Avec Bluetooth",
+                    Toast.LENGTH_SHORT).show();
+            Log.i("INFO", "Bluetooth available");
+        }
+        private final static int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
+        ….;
+        if (!bluetoothAdapter.isEnabled()) {
+            Intent enableBlueTooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBlueTooth, REQUEST_CODE_ENABLE_BLUETOOTH);
+        }
+        if (!bluetoothAdapter.isEnabled()) {
+            bluetoothAdapter.enable();
+
+        }
+        super.onStart();
     }
+
+    private final BroadcastReceiver bluetoothReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                Toast.makeText(ClassAjout.this, "New Device = " + device.getName(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        Log.i("", "onDestroy");
+        if (bluetoothAdapter.isEnabled()) {
+            bluetoothAdapter.cancelDiscovery();
+            bluetoothAdapter.disable();
+            Log.i("INFO", "Bluetooth disable");
+        }
+        super.onDestroy();
+    }
+
 
     private void ajouterSerie() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -213,7 +265,10 @@ public class ClassAjout extends AppCompatActivity {
     private View.OnClickListener clickListenerSuivant=new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            Toast.makeText(ClassAjout.this, "searching...",
+                    Toast.LENGTH_SHORT).show();
+            Log.i("INFO", "searching...");
+            bluetoothAdapter.startDiscovery();
             Intent intent = new Intent(ClassAjout.this, MainActivity.class);
             startActivity(intent);
 
@@ -238,5 +293,52 @@ public class ClassAjout extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+    public void createDataSite() {
+        Groupe group = new Groupe("Site ");
+        group.sites.add("Paris");
+        group.sites.add("Toulouse");
+        group.sites.add("Toulouse");
+        groups.append(0, group);
+    }
+
+    public void createDataSerie() {
+        Groupe group = new Groupe("Série ");
+        for(int i=1;i<4;i++)
+            group.series.add(i);
+        groups.append(1, group);
+    }
+
+    public void onCreateContextMenu(ContextMenu menu, View v,ContextMenu.ContextMenuInfo menuInfo) {
+        if(longClick) {
+            super.onCreateContextMenu(menu, v, menuInfo);
+            getMenuInflater().inflate(R.menu.main, menu);
+            menu.setHeaderTitle("Que voulez-vous faire ?");
+            longClick=false;
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.red:
+                System.out.println("Modifier");
+                break;
+            case R.id.green:
+                System.out.println("Supprimer");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public static void setLongclick(Boolean t){
+        longClick=t;
     }
 }

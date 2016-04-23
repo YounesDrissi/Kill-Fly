@@ -3,6 +3,10 @@
     <string name="ajoutSite">Ajouter un site</string>
     <string name="ajoutSerie">Ajouter une série</string>
     <string name="ajoutPoste">Ajouter un poste</string>
+    <string name="commencerPartie">Commencer la Partie</string>
+    <string name="démo">Démonstration</string>
+    <string name="consulterArchive">Consulter ses Archives</string>
+    <string name="suivant">Suivant</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="spinner_title">Selectionner un site</string>
     <string name="spinner_historique">Selectionner un site</string>
