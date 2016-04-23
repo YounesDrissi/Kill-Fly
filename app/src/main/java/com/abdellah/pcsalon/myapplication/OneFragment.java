@@ -15,9 +15,11 @@ public class OneFragment extends Fragment  {
 
 
 
-    static Chronometer focus;
-    Button start, stop, restart;
+    private Chronometer focus;
+    private Button start, stop, restart;
     private static Cercle cercle;
+    private long time=0;
+    private int etat=0;
 
     public static Cercle getCercle() {
         return cercle;
@@ -38,9 +40,11 @@ public class OneFragment extends Fragment  {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-                focus.start();
+                if(etat==0){
+                    focus.setBase(SystemClock.elapsedRealtime()+time);
+                    focus.start();
+                    etat=1;
+                }
             }
         });
 
@@ -49,9 +53,11 @@ public class OneFragment extends Fragment  {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-                focus.stop();
+                if(etat==1) {
+                    time = focus.getBase() - SystemClock.elapsedRealtime();
+                    focus.stop();
+                    etat=0;
+                }
             }
         });
 
@@ -60,14 +66,10 @@ public class OneFragment extends Fragment  {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 focus.setBase(SystemClock.elapsedRealtime());
             }
         });
-
-
-
 
         return rootView;
     }
