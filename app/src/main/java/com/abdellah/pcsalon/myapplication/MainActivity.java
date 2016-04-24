@@ -2,7 +2,6 @@ package com.abdellah.pcsalon.myapplication;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.inputmethodservice.ExtractEditText;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             i++;
             i=(i % 12);
             System.out.println("i:"+i);
-            update(i,i);
+            update(i,i,i);
             myHandler.postDelayed(this, 1000);
 
            // changeLedNotificationColor();
@@ -152,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         TwoFragment.setyZero(findViewById(R.id.cible22Fin).getHeight()/2
                 -yR+3);
     }
-    public void update(int direction,float distance) {
+    public void update(int direction,float distance,int intensite) {
         //hight,y=946;with,x=1248k
         distance=TwoFragment.getHuite();
         try {
@@ -212,11 +211,15 @@ public class MainActivity extends AppCompatActivity {
 
 
             }
-            ExtractEditText t=(ExtractEditText) findViewById((R.id.extractEditText));
-            t.setText("x :" + v.getX() + ", y :" + v.getY() + "; withe :" + ((ImageView) findViewById(R.id.cible22Fin)).getWidth()
+            TextView directionView=(TextView) findViewById((R.id.direction));
+            directionView.setText("Direction : "+direction);
+
+            TextView densiteView=(TextView) findViewById((R.id.intensite));
+            densiteView.setText("Intensité : "+intensite);
+           /* t.setText("x :" + v.getX() + ", y :" + v.getY() + "; withe :" + ((ImageView) findViewById(R.id.cible22Fin)).getWidth()
                     + ", height : " + ((ImageView) findViewById(R.id.cible22Fin)).getHeight()
                     + "i: "+distance);
-           // Log.d(TAG, "update yes...");
+           // Log.d(TAG, "update yes...");*/
         }catch (Exception e){
           //  Log.d(TAG, "update no...");
             //update();
