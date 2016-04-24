@@ -1,34 +1,76 @@
 package com.abdellah.pcsalon.myapplication;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Chronometer;
 
-public class OneFragment extends Fragment{
+import com.abdellah.pcsalon.myapplication.chrono.Cercle;
+
+public class OneFragment extends Fragment  {
 
 
 
+    private Chronometer focus;
+    private Button start, stop, restart;
+    private static Cercle cercle;
+    private long time=0;
+    private int etat=0;
 
-    public OneFragment() {
-        // Required empty public constructor
+    public static Cercle getCercle() {
+        return cercle;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_1, container, false);
+        final View rootView = inflater.inflate(R.layout.chronometer, container, false);
+        start = (Button) rootView.findViewById(R.id.start_button);
+        stop = (Button) rootView.findViewById(R.id.stop_button);
+        restart = (Button) rootView.findViewById(R.id.reset_button);
+        cercle=(Cercle) rootView.findViewById(R.id.cercle);
+        focus = (Chronometer) rootView.findViewById(R.id.chronometer);
 
+        start.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if(etat==0){
+                    focus.setBase(SystemClock.elapsedRealtime()+time);
+                    focus.start();
+                    etat=1;
+                }
+            }
+        });
+
+
+        stop.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if(etat==1) {
+                    time = focus.getBase() - SystemClock.elapsedRealtime();
+                    focus.stop();
+                    etat=0;
+                }
+            }
+        });
+
+
+        restart.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                focus.setBase(SystemClock.elapsedRealtime());
+            }
+        });
+
+        return rootView;
     }
-
 }

@@ -10,5 +10,5 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="spinner_title">Selectionner un site</string>
     <string name="spinner_historique">Selectionner un site</string>
-
+    <string name="action_settings">Settings</string>
 </resources>

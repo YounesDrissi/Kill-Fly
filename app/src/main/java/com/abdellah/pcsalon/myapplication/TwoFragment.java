@@ -13,6 +13,19 @@ import android.widget.RelativeLayout;
 
 public class TwoFragment extends Fragment{
 
+    private static float xZero;
+    private static float yZero;
+    private static float un=30;
+    private static float deux=83;
+    private static float trois=136;
+    private static float quatre=189;
+    private static float cinq=quatre+53;
+    private static float six=cinq+53;
+    private static float sept=six+53;
+    private static float huite=sept+53;
+    private static float other=huite+53;
+
+
 
     private static final String TAG ="TwoFragement" ;
     static RelativeLayout relativeLayout;
@@ -62,6 +75,58 @@ public class TwoFragment extends Fragment{
        // relativeLayout.addChildrenForAccessibility((((new ArrayList<View>(2)).add(0,iCible)).add(1,iReticule)));
         return inflater.inflate(R.layout.fragment_3, container, false);
 
+    }
+
+    public static float getxZero() {
+        return xZero;
+    }
+
+    public static float getUn() {
+        return un;
+    }
+
+    public static float getDeux() {
+        return deux;
+    }
+
+    public static float getTrois() {
+        return trois;
+    }
+
+    public static float getQuatre() {
+        return quatre;
+    }
+
+    public static float getCinq() {
+        return cinq;
+    }
+
+    public static float getSix() {
+        return six;
+    }
+
+    public static float getSept() {
+        return sept;
+    }
+
+    public static float getHuite() {
+        return huite;
+    }
+
+    public static float getOther() {
+        return other;
+    }
+
+    public static void setxZero(float xZero) {
+        TwoFragment.xZero = xZero;
+    }
+
+    public static float getyZero() {
+        return yZero;
+    }
+
+    public static void setyZero(float yZero) {
+        TwoFragment.yZero = yZero;
     }
 
     @Override

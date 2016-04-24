@@ -28,10 +28,17 @@
 
             android:name=".classPrincipal.HisoriqueFormulaire"
             android:label="@string/app_name">
-        </activity
-        >
+        </activity>
         <activity
             android:name=".classPrincipal.ClassAjout"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".gestionListSerieVillePoste.ListActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".gestionListeSpinner.AndroidSpinnerExampleActivity"
             android:label="@string/app_name">
         </activity>
     </application>

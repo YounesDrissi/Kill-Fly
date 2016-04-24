@@ -8,12 +8,11 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="@dimen/navigation_max_width"
-        android:id="@+id/client_cible"
+        android:id="@+id/cible22Fin"
         android:layout_gravity="center_horizontal"
-        android:src="@mipmap/client_cible" />
+        android:src="@mipmap/cible22fin" />
 
     <android.inputmethodservice.ExtractEditText
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New ExtractEditText"
@@ -23,10 +22,10 @@
 
     <ImageView
 
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
         android:id="@+id/reticule_client"
         android:layout_gravity="center_horizontal"
-        android:src="@mipmap/reticule"
+        android:src="@mipmap/reticuleronde"
         android:layout_weight="0.02" />
 </LinearLayout>

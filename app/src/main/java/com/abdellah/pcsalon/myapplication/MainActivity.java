@@ -1,7 +1,11 @@
 package com.abdellah.pcsalon.myapplication;
 
 import android.content.Context;
+<<<<<<< HEAD
 
+=======
+import android.graphics.Color;
+>>>>>>> ac2d4cdbda3ba07fcf09caf69d217c8daefbf606
 import android.inputmethodservice.ExtractEditText;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,24 +42,34 @@ public class MainActivity extends AppCompatActivity {
 
 
     private Handler myHandler;
+    private boolean debut=true;
+    static int i=0;
     private Runnable myRunnable = new Runnable() {
         @Override
         public void run() {
             // Code à éxécuter de façon périodique
 
             //Log.d(TAG, "myRunnable yes...");
-            update();
-            myHandler.postDelayed(this, 10);
+            if(debut){
+                initialisationCordonnees();
+                debut=false;
+            }
+            i++;
+            i=(i % 12);
+            System.out.println("i:"+i);
+            update(i,i);
+            myHandler.postDelayed(this, 1000);
 
            // changeLedNotificationColor();
 
         }
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //*
+
         contex=this;
 
         setContentView(R.layout.activity_main);
@@ -73,7 +87,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         myHandler = new Handler();
-        myHandler.postDelayed(myRunnable,10); // on redemande toute les 500ms
+        myHandler.postDelayed(myRunnable,1); // on redemande toute les 500ms
+
+
 
 
     }
@@ -130,36 +146,88 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void update() {
-        //hight,y=946;with,x=1248
+    public void initialisationCordonnees(){
+        //float diference=(findViewById(R.id.reticule_client).getWidth()-26)/2;
+        float diference=0;
+        float xR=(findViewById(R.id.reticule_client).getWidth()/2);
+        float yR=(findViewById(R.id.reticule_client).getHeight()/2);
+        TwoFragment.setxZero(findViewById(R.id.cible22Fin).getWidth()/2
+                -xR-(1/2));
+        TwoFragment.setyZero(findViewById(R.id.cible22Fin).getHeight()/2
+                -yR+3);
+    }
+    public void update(int direction,float distance) {
+        //hight,y=946;with,x=1248k
+        distance=TwoFragment.getHuite();
         try {
           //  Log.d(TAG, "update yes...");
             ImageView v= (ImageView) findViewById(R.id.reticule_client);
-            //v.setX((v.getX() + 1) % 500);
-            //v.setY((v.getY() + 1) % 500);
-            //v.setX();
-            float diference=(((ImageView) findViewById(R.id.reticule_client)).getWidth()-26)/2;
-            diference=0;
-            float xR=(((ImageView) findViewById(R.id.reticule_client)).getWidth()/2)-diference;
-            float yR=(((ImageView) findViewById(R.id.reticule_client)).getHeight()/2)-diference;
-            float x=((ImageView) findViewById(R.id.client_cible)).getWidth()/2
-                        -xR;
-            float y=((ImageView) findViewById(R.id.client_cible)).getHeight()/2
-                        -yR;
-            v.setX(130-xR);
-            v.setY(y-yR);
-            //TwoFragment.relativeLayout.getChildAt(1).setY((TwoFragment.relativeLayout.getChildAt(1).getY() + 1) % 500);
-            //TwoFragment.relativeLayout.getChildAt(1).setX((TwoFragment.relativeLayout.getChildAt(1).getX()+1)%500);
+            OneFragment.getCercle().repaint(Color.BLACK);
+           // float devise27=(TwoFragment.getxZero()/3);
+            switch(direction) {
+                case 0:
+                v.setX(TwoFragment.getxZero());
+                v.setY(TwoFragment.getyZero()-distance);
+                    break;
+                case 1:
+                    v.setX((float) (TwoFragment.getxZero() + ((distance/2.15))));
+                    v.setY((float) (TwoFragment.getyZero()-((distance/1.11))));
+                    break;
+                case 2:
+                    v.setX((float) (TwoFragment.getxZero() + ((distance/1.11))));
+                    v.setY((float) (TwoFragment.getyZero()-((distance/2.15))));
+                break;
+                case 3:
+                    v.setX(TwoFragment.getxZero()+distance);
+                    v.setY(TwoFragment.getyZero());
+                break;
+                case 4:
+                    v.setX((float) (TwoFragment.getxZero() + ((distance/1.11))));
+                    v.setY((float) (TwoFragment.getyZero()+((distance/2.15))));
+                    break;
+                case 5:
+                    v.setX((float) (TwoFragment.getxZero() + ((distance/2.15))));
+                    v.setY((float) (TwoFragment.getyZero()+((distance/1.11))));
+                break;
+                case 6:
+                    v.setX(TwoFragment.getxZero());
+                    v.setY(TwoFragment.getyZero()+distance);
+                break;
+                case 7:
+                    v.setX((float) (TwoFragment.getxZero() - ((distance/2.15))));
+                    v.setY((float) (TwoFragment.getyZero()+((distance/1.11))));
+                    break;
+                case 8:
+                    v.setX((float) (TwoFragment.getxZero() - ((distance/1.11))));
+                    v.setY((float) (TwoFragment.getyZero()+((distance/2.15))));
+                    break;
+                case 9:
+                    v.setX(TwoFragment.getxZero()-distance);
+                    v.setY(TwoFragment.getyZero());
+                    break;
+                case 10:
+                    v.setX((float) (TwoFragment.getxZero() - ((distance/1.11))));
+                    v.setY((float) (TwoFragment.getyZero()-((distance/2.15))));
+                break;
+                case 11:
+                    v.setX((float) (TwoFragment.getxZero() - ((distance/2.15))));
+                    v.setY((float) (TwoFragment.getyZero()-((distance/1.11))));
+                break;
+
+
+            }
             ExtractEditText t=(ExtractEditText) findViewById((R.id.extractEditText));
-            t.setText("x :"+v.getX()+", y :"+v.getY()+"; withe :"+((ImageView) findViewById(R.id.client_cible)).getWidth()
-            +", height : "+((ImageView) findViewById(R.id.client_cible)).getHeight()
-            +"; taileRX:"+(xR)+", tailleRy:"+(yR)+", dife:"+diference);
+            t.setText("x :" + v.getX() + ", y :" + v.getY() + "; withe :" + ((ImageView) findViewById(R.id.cible22Fin)).getWidth()
+                    + ", height : " + ((ImageView) findViewById(R.id.cible22Fin)).getHeight()
+                    + "i: "+distance);
            // Log.d(TAG, "update yes...");
         }catch (Exception e){
           //  Log.d(TAG, "update no...");
             //update();
         }
     }
+
+
 
     @Override
     public void onDestroy() {
