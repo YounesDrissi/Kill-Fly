@@ -138,8 +138,7 @@ public class ClassAjout extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             Log.i("INFO", "Bluetooth available");
         }
-        private final static int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
-        ….;
+        final int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
         if (!bluetoothAdapter.isEnabled()) {
             Intent enableBlueTooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBlueTooth, REQUEST_CODE_ENABLE_BLUETOOTH);
