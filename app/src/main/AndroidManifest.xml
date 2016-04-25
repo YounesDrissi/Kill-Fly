@@ -10,8 +10,9 @@
         android:theme="@style/MyMaterialTheme">
 
         <activity
-            android:name=".classPrincipal.PremiereActivite"
+            android:name=".MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/MyMaterialTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,28 +21,25 @@
         </activity>
 
         <activity
-        android:name=".MainActivity"
-        android:label="@string/app_name">
-    </activity>
+            android:name=".Fragments"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
 
         <activity
 
-            android:name=".classPrincipal.HisoriqueFormulaire"
-            android:label="@string/app_name">
-        </activity>
-        <activity
-            android:name=".classPrincipal.ClassAjout"
-            android:label="@string/app_name">
-        </activity>
+            android:name=".historique.HisoriqueFormulaire"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".gestionListSerieVillePoste.ListActivity"
-            android:label="@string/app_name">
-        </activity>
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".gestionListeSpinner.AndroidSpinnerExampleActivity"
-            android:label="@string/app_name">
-        </activity>
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
     </application>
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 </manifest>

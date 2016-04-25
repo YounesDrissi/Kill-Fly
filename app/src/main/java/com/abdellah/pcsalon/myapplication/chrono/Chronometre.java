@@ -1,4 +1,4 @@
-package com.abdellah.pcsalon.myapplication;
+package com.abdellah.pcsalon.myapplication.chrono;
 
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -9,9 +9,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 
+import com.abdellah.pcsalon.myapplication.R;
 import com.abdellah.pcsalon.myapplication.chrono.Cercle;
 
-public class OneFragment extends Fragment {
+public class Chronometre extends Fragment {
 
 
     private Chronometer focus;

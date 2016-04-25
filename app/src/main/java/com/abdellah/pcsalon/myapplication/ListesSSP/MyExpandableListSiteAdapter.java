@@ -11,9 +11,7 @@ import android.widget.CheckedTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.abdellah.pcsalon.myapplication.ListesSSP.Groupe;
 import com.abdellah.pcsalon.myapplication.R;
-import com.abdellah.pcsalon.myapplication.classPrincipal.ClassAjout;
 
 /**
  * Created by Younes on 16/03/2016.
@@ -48,9 +46,9 @@ public class MyExpandableListSiteAdapter extends BaseExpandableListAdapter {
 
         TextView text = null;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.test3, null);
+            //convertView = inflater.inflate(R.layout.test3, null);
         }
-        text = (TextView) convertView.findViewById(R.id.textView1);
+        //text = (TextView) convertView.findViewById(R.id.textView1);
         text.setText(children);
         convertView.setOnClickListener(new OnClickListener() {
             @Override
@@ -71,7 +69,7 @@ public class MyExpandableListSiteAdapter extends BaseExpandableListAdapter {
                 Toast.makeText(activity, children,
                         Toast.LENGTH_SHORT).show();
                 longClick = true;
-                ClassAjout.setLongclick(true);
+                //ClassAjout.setLongclick(true);
                 return false;
             }
         });
@@ -112,7 +110,7 @@ public class MyExpandableListSiteAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.test2, null);
+           // convertView = inflater.inflate(R.layout.test2, null);
         }
         Groupe group = (Groupe) getGroup(groupPosition);
         ((CheckedTextView) convertView).setText(group.string);

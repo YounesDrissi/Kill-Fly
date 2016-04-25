@@ -73,7 +73,7 @@ public class TwoFragment extends Fragment{
 
         */
        // relativeLayout.addChildrenForAccessibility((((new ArrayList<View>(2)).add(0,iCible)).add(1,iReticule)));
-        return inflater.inflate(R.layout.fragment_3, container, false);
+        return inflater.inflate(R.layout.cible, container, false);
 
     }
 

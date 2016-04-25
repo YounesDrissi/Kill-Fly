@@ -1,6 +1,5 @@
-package com.abdellah.pcsalon.myapplication.classPrincipal;
+package com.abdellah.pcsalon.myapplication.historique;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;

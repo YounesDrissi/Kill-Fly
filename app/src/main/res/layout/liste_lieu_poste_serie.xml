@@ -10,7 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
+        android:layout_height="100dp"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -34,7 +34,9 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/ver_img"
         android:orientation="vertical"
         android:padding="10dip">
 
@@ -42,8 +44,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dip"
-            android:text="Category:" />
+            android:layout_marginTop="30dip"
+            android:text="@string/site"
+            android:textSize="20sp"
+            android:textStyle="normal" />
 
         <Spinner
             android:id="@+id/spinnerLieu"
@@ -55,8 +59,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dip"
-            android:text="Serie :" />
+            android:layout_marginTop="50dip"
+            android:text="@string/serie"
+            android:textSize="20sp"
+            android:textStyle="normal" />
 
         <Spinner
             android:id="@+id/spinnerPoste"
@@ -68,8 +74,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dip"
-            android:text="Poste :" />
+            android:layout_marginTop="65dip"
+            android:text="@string/poste"
+            android:textSize="20sp"
+            android:textStyle="normal" />
 
         <Spinner
             android:id="@+id/spinnerSerie"
@@ -79,22 +87,37 @@
 
 
     </LinearLayout>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:padding="10dip"
-        android:layout_marginTop="500dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="500dp"
+        android:orientation="vertical"
+        android:padding="10dip">
+
         <Button
             android:id="@+id/buttonSuivant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Suivant"
-            android:layout_gravity="bottom|right"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentTop="true"
+            android:layout_gravity="bottom|right"
+            android:background="@drawable/button_bg_disabled"
+            android:text="@string/suivant"
+            android:textColor="@color/windowBackground"
+            android:textStyle="normal" />
+
+        <Button
+            android:id="@+id/buttonRetour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:background="@drawable/button_bg_disabled"
+            android:text="@string/retour"
+            android:textColor="@color/windowBackground"
+            android:textStyle="normal" />
 
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

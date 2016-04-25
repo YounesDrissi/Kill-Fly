@@ -1,4 +1,4 @@
-package com.abdellah.pcsalon.myapplication.classPrincipal;
+package com.abdellah.pcsalon.myapplication.historique;
 
 import android.content.Context;
 import android.view.View;

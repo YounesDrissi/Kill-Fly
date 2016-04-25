@@ -8,13 +8,6 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Chronometer"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <Chronometer
         android:id="@+id/chronometer"
         android:layout_width="wrap_content"
@@ -25,7 +18,7 @@
 
     <Button
         android:id="@+id/start_button"
-        android:layout_width="fill_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_bg_disabled"
         android:onClick="startButton"
@@ -35,7 +28,7 @@
 
     <Button
         android:id="@+id/stop_button"
-        android:layout_width="fill_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="16dp"
@@ -47,7 +40,7 @@
 
     <Button
         android:id="@+id/reset_button"
-        android:layout_width="fill_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_bg_disabled"
         android:onClick="resetButton"
@@ -59,7 +52,8 @@
         android:id="@+id/cercle"
         android:layout_width="wrap_content"
         android:layout_height="159dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp" />
 
 
 </LinearLayout>

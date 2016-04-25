@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.abdellah.pcsalon.myapplication.Fragments;
 import com.abdellah.pcsalon.myapplication.MainActivity;
 import com.abdellah.pcsalon.myapplication.R;
 import com.abdellah.pcsalon.myapplication.bdd.GestionBaseDeDonnees;
@@ -37,6 +38,7 @@ public class AndroidSpinnerExampleActivity extends AppCompatActivity {
     private List<String> poste;
     private List<String> sites;
     private Button buttonSuivant;
+    private Button buttonRetour;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -140,6 +142,15 @@ public class AndroidSpinnerExampleActivity extends AppCompatActivity {
                 GestionBaseDeDonnees.setSite(spinnerLieu.getSelectedItem().toString());
                 GestionBaseDeDonnees.setPoste(spinnerPoste.getSelectedItem().toString());
                 GestionBaseDeDonnees.setSerie(spinnerSerie.getSelectedItem().toString());
+                Intent intent = new Intent(AndroidSpinnerExampleActivity.this, Fragments.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonRetour= (Button) findViewById(R.id.buttonRetour);
+        buttonRetour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent(AndroidSpinnerExampleActivity.this, MainActivity.class);
                 startActivity(intent);
             }

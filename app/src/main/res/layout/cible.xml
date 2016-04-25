@@ -29,8 +29,11 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enregistrer Partie"
             android:id="@+id/enregistrer"
+            android:background="@drawable/button_bg_disabled"
+            android:text="@string/enregistrer"
+            android:textColor="@color/windowBackground"
+            android:textStyle="normal"
             android:layout_below="@+id/intensite"
             android:layout_centerHorizontal="true" />
 
@@ -38,22 +41,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Intensité : 0"
+            android:textStyle="bold"
+            android:textColor="@color/abc_input_method_navigation_guard"
             android:id="@+id/intensite"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_toLeftOf="@+id/enregistrer"
-            android:layout_toStartOf="@+id/enregistrer" />
+            android:layout_toStartOf="@+id/enregistrer"
+            android:layout_marginLeft="15dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Direction : 0"
+            android:textStyle="bold"
+            android:textColor="@color/abc_input_method_navigation_guard"
             android:id="@+id/direction"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignBottom="@+id/Intensité"
             android:layout_toRightOf="@+id/enregistrer"
-            android:layout_toEndOf="@+id/enregistrer" />
+            android:layout_toEndOf="@+id/enregistrer"
+            android:layout_marginLeft="10dp"/>
     </RelativeLayout>
 </LinearLayout>

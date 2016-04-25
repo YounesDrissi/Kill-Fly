@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.abdellah.pcsalon.myapplication.MainActivity;
+import com.abdellah.pcsalon.myapplication.Fragments;
 
 import org.achartengine.GraphicalView;
 
@@ -51,7 +51,7 @@ public class DynamicGraphActivity extends Fragment {
 							 Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		super.onStart();
-		view = line.getView(MainActivity.contex);
+		view = line.getView(Fragments.contex);
 
 		return view;
 	}
