@@ -13,20 +13,47 @@
         android:layout_gravity="center_horizontal"
         android:src="@mipmap/cible22fin" />
 
-    <android.inputmethodservice.ExtractEditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New ExtractEditText"
-        android:id="@+id/extractEditText"
-        android:layout_gravity="center_horizontal"
-     />
-
     <ImageView
 
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:id="@+id/reticule_client"
         android:layout_gravity="center_horizontal"
         android:src="@mipmap/reticuleronde"
         android:layout_weight="0.02" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="513dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enregistrer Partie"
+            android:id="@+id/enregistrer"
+            android:layout_below="@+id/intensite"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Intensité : 0"
+            android:id="@+id/intensite"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/enregistrer"
+            android:layout_toStartOf="@+id/enregistrer" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Direction : 0"
+            android:id="@+id/direction"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@+id/Intensité"
+            android:layout_toRightOf="@+id/enregistrer"
+            android:layout_toEndOf="@+id/enregistrer" />
+    </RelativeLayout>
 </LinearLayout>
