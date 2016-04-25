@@ -11,15 +11,14 @@ import android.widget.Chronometer;
 
 import com.abdellah.pcsalon.myapplication.chrono.Cercle;
 
-public class OneFragment extends Fragment  {
-
+public class OneFragment extends Fragment {
 
 
     private Chronometer focus;
     private Button start, stop, restart;
     private static Cercle cercle;
-    private long time=0;
-    private int etat=0;
+    private long time = 0;
+    private int etat = 0;
 
     public static Cercle getCercle() {
         return cercle;
@@ -33,17 +32,17 @@ public class OneFragment extends Fragment  {
         start = (Button) rootView.findViewById(R.id.start_button);
         stop = (Button) rootView.findViewById(R.id.stop_button);
         restart = (Button) rootView.findViewById(R.id.reset_button);
-        cercle=(Cercle) rootView.findViewById(R.id.cercle);
+        cercle = (Cercle) rootView.findViewById(R.id.cercle);
         focus = (Chronometer) rootView.findViewById(R.id.chronometer);
 
         start.setOnClickListener(new Button.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if(etat==0){
-                    focus.setBase(SystemClock.elapsedRealtime()+time);
+                if (etat == 0) {
+                    focus.setBase(SystemClock.elapsedRealtime() + time);
                     focus.start();
-                    etat=1;
+                    etat = 1;
                 }
             }
         });
@@ -53,10 +52,10 @@ public class OneFragment extends Fragment  {
 
             @Override
             public void onClick(View v) {
-                if(etat==1) {
+                if (etat == 1) {
                     time = focus.getBase() - SystemClock.elapsedRealtime();
                     focus.stop();
-                    etat=0;
+                    etat = 0;
                 }
             }
         });

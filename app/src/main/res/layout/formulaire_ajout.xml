@@ -10,7 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="125dp"
+        android:layout_height="@dimen/app_bar_height"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -33,52 +33,46 @@
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:padding="10dip"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        >
-
+        android:orientation="vertical"
+        android:padding="10dip">
 
         <ExpandableListView
             android:id="@+id/listeSite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            >
-        </ExpandableListView>
+            android:layout_marginTop="100dp"></ExpandableListView>
 
         <ExpandableListView
             android:id="@+id/listeSerie"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-        </ExpandableListView>
+            android:layout_height="wrap_content"></ExpandableListView>
 
         <ExpandableListView
             android:id="@+id/listePoste"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-        </ExpandableListView>
+            android:layout_height="wrap_content"></ExpandableListView>
 
-</RelativeLayout>
+    </RelativeLayout>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:padding="10dip"
-        android:layout_marginTop="500dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="500dp"
+        android:orientation="vertical"
+        android:padding="10dip">
+
         <Button
             android:id="@+id/buttonSuivant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/suivant"
-            android:layout_gravity="bottom|right"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentTop="true"
+            android:layout_gravity="bottom|right"
+            android:text="@string/suivant" />
 
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -41,10 +41,10 @@ public class ClassAjout extends AppCompatActivity {
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
     private SparseArray<Groupe> groups = new SparseArray<Groupe>();
-    private static Boolean longClick=false;
+    private static Boolean longClick = false;
 
     private Button buttonSuivant;
-    private String siteAjoute="";
+    private String siteAjoute = "";
     private int posteAjoute;
     private int serieAjoute;
 
@@ -74,10 +74,10 @@ public class ClassAjout extends AppCompatActivity {
         registerForContextMenu(listSite);
         //registerForContextMenu(listSerie);
         MyExpandableListAdapter adapterSite = new MyExpandableListAdapter(this, groups);
-        MyExpandableListSiteAdapter adapterSerie=new MyExpandableListSiteAdapter(this,groups);
+        MyExpandableListSiteAdapter adapterSerie = new MyExpandableListSiteAdapter(this, groups);
         listSite.setAdapter(adapterSite);
         listSerie.setAdapter(adapterSerie);
-        buttonSuivant =(Button)findViewById(R.id.buttonSuivant);
+        buttonSuivant = (Button) findViewById(R.id.buttonSuivant);
         buttonSuivant.setOnClickListener(clickListenerSuivant);
 
 
@@ -261,7 +261,7 @@ public class ClassAjout extends AppCompatActivity {
     }
 
 
-    private View.OnClickListener clickListenerSuivant=new View.OnClickListener() {
+    private View.OnClickListener clickListenerSuivant = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Toast.makeText(ClassAjout.this, "searching...",
@@ -277,7 +277,7 @@ public class ClassAjout extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;
@@ -300,6 +300,7 @@ public class ClassAjout extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
     public void createDataSite() {
         Groupe group = new Groupe("Site ");
         group.sites.add("Paris");
@@ -310,17 +311,17 @@ public class ClassAjout extends AppCompatActivity {
 
     public void createDataSerie() {
         Groupe group = new Groupe("Série ");
-        for(int i=1;i<4;i++)
+        for (int i = 1; i < 4; i++)
             group.series.add(i);
         groups.append(1, group);
     }
 
-    public void onCreateContextMenu(ContextMenu menu, View v,ContextMenu.ContextMenuInfo menuInfo) {
-        if(longClick) {
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        if (longClick) {
             super.onCreateContextMenu(menu, v, menuInfo);
             getMenuInflater().inflate(R.menu.main, menu);
             menu.setHeaderTitle("Que voulez-vous faire ?");
-            longClick=false;
+            longClick = false;
         }
     }
 
@@ -337,7 +338,7 @@ public class ClassAjout extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public static void setLongclick(Boolean t){
-        longClick=t;
+    public static void setLongclick(Boolean t) {
+        longClick = t;
     }
 }

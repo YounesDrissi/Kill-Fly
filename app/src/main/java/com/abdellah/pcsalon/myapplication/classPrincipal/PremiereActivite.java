@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.abdellah.pcsalon.myapplication.MainActivity;
 import com.abdellah.pcsalon.myapplication.R;
@@ -16,12 +17,12 @@ import com.abdellah.pcsalon.myapplication.gestionListeSpinner.AndroidSpinnerExam
 public class PremiereActivite extends AppCompatActivity {
 
 
-    Button buttonCommence=null;
-    Button buttonTest=null;
-    Button buttonArchive=null;
+    Button buttonCommence = null;
+    Button buttonTest = null;
+    Button buttonArchive = null;
 
 
-    private View.OnClickListener clickListenercOMMENCER=new View.OnClickListener() {
+    private View.OnClickListener clickListenercOMMENCER = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
@@ -32,7 +33,7 @@ public class PremiereActivite extends AppCompatActivity {
     };
 
 
-    private View.OnClickListener clickListenerTest=new View.OnClickListener() {
+    private View.OnClickListener clickListenerTest = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
@@ -42,7 +43,7 @@ public class PremiereActivite extends AppCompatActivity {
         }
     };
 
-    private View.OnClickListener clickListenerArchive=new View.OnClickListener() {
+    private View.OnClickListener clickListenerArchive = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
@@ -58,9 +59,9 @@ public class PremiereActivite extends AppCompatActivity {
         setContentView(R.layout.content_main);
 
 
-        buttonCommence=(Button)findViewById(R.id.buttonEntrer);
-        buttonTest=(Button)findViewById(R.id.buttonTest);
-        buttonArchive=(Button)findViewById(R.id.buttonHistorique);
+        buttonCommence = (Button) findViewById(R.id.buttonEntrer);
+        buttonTest = (Button) findViewById(R.id.buttonTest);
+        buttonArchive = (Button) findViewById(R.id.buttonHistorique);
 
         buttonCommence.setOnClickListener(clickListenercOMMENCER);
         buttonTest.setOnClickListener(clickListenerTest);

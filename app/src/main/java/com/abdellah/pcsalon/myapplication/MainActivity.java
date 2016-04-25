@@ -1,11 +1,6 @@
 package com.abdellah.pcsalon.myapplication;
 
-import android.content.Context;
-<<<<<<< HEAD
-
-=======
-import android.graphics.Color;
->>>>>>> ac2d4cdbda3ba07fcf09caf69d217c8daefbf606
+import android.content.Context;import android.graphics.Color;
 import android.inputmethodservice.ExtractEditText;
 import android.os.Bundle;
 import android.os.Handler;
@@ -85,12 +80,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
-
         myHandler = new Handler();
         myHandler.postDelayed(myRunnable,1); // on redemande toute les 500ms
-
-
-
 
     }
 
