@@ -15,9 +15,10 @@ import com.abdellah.pcsalon.myapplication.historique.HisoriqueFormulaire;
 public class MainActivity extends AppCompatActivity {
 
 
-    Button buttonCommence = null;
-    Button buttonTest = null;
-    Button buttonArchive = null;
+    private Button buttonCommence = null;
+    private Button buttonTest = null;
+    private Button buttonArchive = null;
+    private final String EXTRA_MAIN="mainActivitePassage";
 
 
     private View.OnClickListener clickListenercOMMENCER = new View.OnClickListener() {
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
 
             Intent intent = new Intent(MainActivity.this, Fragments.class);
+            intent.putExtra(EXTRA_MAIN, 1);
             startActivity(intent);
 
         }

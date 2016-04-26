@@ -1,6 +1,7 @@
 package com.abdellah.pcsalon.myapplication.gestionListeSpinner;
 
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.abdellah.pcsalon.myapplication.Fragments;
 import com.abdellah.pcsalon.myapplication.MainActivity;
@@ -31,7 +35,7 @@ import java.util.List;
 public class AndroidSpinnerExampleActivity extends AppCompatActivity {
 
 
-    private String siteAjoute="";
+    private String siteAjoute = "";
     private int posteAjoute;
     private int serieAjoute;
     private List<String> serie;
@@ -39,6 +43,8 @@ public class AndroidSpinnerExampleActivity extends AppCompatActivity {
     private List<String> sites;
     private Button buttonSuivant;
     private Button buttonRetour;
+    private final String EXTRAT_AJOUT="extraAjout";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,9 @@ public class AndroidSpinnerExampleActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
 
 
         // Spinner Lieu
@@ -72,7 +81,6 @@ public class AndroidSpinnerExampleActivity extends AppCompatActivity {
         GestionBaseDeDonnees.getGestionBaseDeDonnees().getSiteList().add("Bollene");
 
 
-
         SpinnerAdapter<String> dataAdapter = new SpinnerAdapter<String>(this, android.R.layout.simple_spinner_item, sites,
                 "site");
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -92,7 +100,7 @@ public class AndroidSpinnerExampleActivity extends AppCompatActivity {
 
             }
         });
-        serie=new ArrayList<String>();
+        serie = new ArrayList<String>();
         serie.add("0");
         serie.add("1");
         serie.add("2");
@@ -119,7 +127,7 @@ public class AndroidSpinnerExampleActivity extends AppCompatActivity {
 
             }
         });
-        poste=new ArrayList<String>();
+        poste = new ArrayList<String>();
         poste.add("0");
         poste.add("1");
         poste.add("2");
@@ -128,26 +136,34 @@ public class AndroidSpinnerExampleActivity extends AppCompatActivity {
         GestionBaseDeDonnees.getGestionBaseDeDonnees().getPosteList().add("2");
 
 
-        SpinnerAdapter<String> dataAdapterPoste= new SpinnerAdapter<String>(this, android.R.layout.simple_spinner_item, poste,
+        SpinnerAdapter<String> dataAdapterPoste = new SpinnerAdapter<String>(this, android.R.layout.simple_spinner_item, poste,
                 "categories");
         dataAdapterPoste.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPoste.setAdapter(dataAdapterPoste);
 
 
         //listner button
-        buttonSuivant =(Button)findViewById(R.id.buttonSuivant);
+        buttonSuivant = (Button) findViewById(R.id.buttonSuivant);
+        //*************************
+       // registerForContextMenu(buttonSuivant);
         buttonSuivant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 GestionBaseDeDonnees.setSite(spinnerLieu.getSelectedItem().toString());
                 GestionBaseDeDonnees.setPoste(spinnerPoste.getSelectedItem().toString());
                 GestionBaseDeDonnees.setSerie(spinnerSerie.getSelectedItem().toString());
-                Intent intent = new Intent(AndroidSpinnerExampleActivity.this, Fragments.class);
-                startActivity(intent);
+                    Intent intent = new Intent(AndroidSpinnerExampleActivity.this, Fragments.class);
+                    intent.putExtra(EXTRAT_AJOUT, 2);
+                    startActivity(intent);
             }
         });
 
-        buttonRetour= (Button) findViewById(R.id.buttonRetour);
+        //********************************
+
+
+
+
+        buttonRetour = (Button) findViewById(R.id.buttonRetour);
         buttonRetour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,6 +173,24 @@ public class AndroidSpinnerExampleActivity extends AppCompatActivity {
         });
     }
 
+
+    //*******
+
+    //*********
+
+    //*********************
+
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("Appareil Disponible");
+        menu.add(0, v.getId(), 0, "Action 1");
+        menu.add(0, v.getId(), 0, "Action 2");
+        menu.add(0, v.getId(), 1, "Action 3");
+        menu.add(1, v.getId(), 1, "Action 4");
+        menu.add(1, v.getId(), 0, "Action 5");
+    }
+    //***************************
 
     private void ajouterSerie() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -256,10 +290,11 @@ public class AndroidSpinnerExampleActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;

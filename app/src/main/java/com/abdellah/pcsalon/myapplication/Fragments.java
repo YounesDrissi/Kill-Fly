@@ -1,6 +1,8 @@
 package com.abdellah.pcsalon.myapplication;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,9 +19,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.abdellah.pcsalon.myapplication.bluetooth.BluetoothDemo;
+import com.abdellah.pcsalon.myapplication.bluetooth.ScanDevices;
 import com.abdellah.pcsalon.myapplication.chrono.Chronometre;
 import com.abdellah.pcsalon.myapplication.dynamicGraph.DynamicGraphActivity;
+import com.abdellah.pcsalon.myapplication.gestionListeSpinner.AndroidSpinnerExampleActivity;
 
 
 import java.util.ArrayList;
@@ -32,6 +38,9 @@ public class Fragments extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
+    private BluetoothAdapter bluetoothAdapter = null;
+    private final static int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
 
     public static Context contex;
 
@@ -51,15 +60,56 @@ public class Fragments extends AppCompatActivity {
             }
             i++;
             i = (i % 12);
-            System.out.println("i:" + i);
+            //System.out.println("i:" + i);
             update(i, i, i);
             myHandler.postDelayed(this, 1000);
-
-            // changeLedNotificationColor();
 
         }
     };
 
+
+    public void traiterBluetooth() {
+
+        Intent intent = getIntent();
+        //tester si le bluetooth est supporté par le téléphone
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (bluetoothAdapter == null)
+            Toast.makeText(Fragments.this, "Pas de Bluetooth",
+                    Toast.LENGTH_LONG).show();
+        else
+            System.out.println("Vous avez le bluetooth");
+        //Demander l'activation du bluetooth
+        if (!bluetoothAdapter.isEnabled()) {
+            Intent enableBlueTooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBlueTooth, REQUEST_CODE_ENABLE_BLUETOOTH);
+        } else if (intent != null && intent.getIntExtra("demo", 0) == 3) {
+        }
+        else{
+            Intent intent1 = new Intent(Fragments.this, BluetoothDemo.class);
+            startActivity(intent1);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Intent intent = getIntent();
+        if (requestCode != REQUEST_CODE_ENABLE_BLUETOOTH)
+            return;
+        if (resultCode == RESULT_OK) {
+            Intent intent1 = new Intent(Fragments.this, BluetoothDemo.class);
+            startActivity(intent1);
+        } else {
+            if (intent != null && intent.getIntExtra("mainActivitePassage", 0) == 1) {
+                Intent intent2 = new Intent(Fragments.this, MainActivity.class);
+                startActivity(intent2);
+            }
+            if (intent.getIntExtra("extraAjout", 0) == 2) {
+                Intent intent3 = new Intent(Fragments.this, AndroidSpinnerExampleActivity.class);
+                startActivity(intent3);
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,21 +132,21 @@ public class Fragments extends AppCompatActivity {
 
         myHandler = new Handler();
         myHandler.postDelayed(myRunnable, 1); // on redemande toute les 500ms
-
+        traiterBluetooth();
     }
 
     private void setupTabIcons() {
 
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.reticule_tab, 0, 0);
+        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.target, 0, 0);
         tabLayout.getTabAt(0).setCustomView(tabTwo);
 
         TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.diagramme, 0, 0);
+        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.graphic, 0, 0);
         tabLayout.getTabAt(1).setCustomView(tabThree);
 
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.chrono, 0, 0);
+        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.clock_1, 0, 0);
         tabLayout.getTabAt(2).setCustomView(tabOne);
     }
 
