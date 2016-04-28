@@ -1,3 +1,2 @@
 include ':app'
-include ':opencv'
-project(':opencv').projectDir = new File('C:/Users/Younes/Downloads/OpenCV-3.1.0-android-sdk/OpenCV-android-sdk/sdk')
+include ':libs:openCVLibrary310'

@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.abdellah.pcsalon.myapplication.Fragments;
 import com.abdellah.pcsalon.myapplication.MainActivity;
 import com.abdellah.pcsalon.myapplication.R;
+import com.abdellah.pcsalon.myapplication.TestSpinnerAdapter;
 import com.abdellah.pcsalon.myapplication.bdd.GestionBaseDeDonnees;
 
 import java.util.ArrayList;
@@ -54,12 +55,14 @@ public class AndroidSpinnerExampleActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-
+        final Spinner spinnerLieu = (Spinner) findViewById(R.id.spinnerLieu);
+       // spinnerLieu = (Spinner) findViewById(R.id.spn_test);
+        TestSpinnerAdapter testSpinnerAdapter = new TestSpinnerAdapter(getResources().getStringArray(R.array.array_name));
+        spinnerLieu.setAdapter(testSpinnerAdapter);
 
 
         // Spinner Lieu
-        final Spinner spinnerLieu = (Spinner) findViewById(R.id.spinnerLieu);
+
         spinnerLieu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

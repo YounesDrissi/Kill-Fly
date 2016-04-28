@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -45,7 +46,6 @@ public class BluetoothDemo extends Activity {
     ArrayAdapter<String> adapter, detectedAdapter;
     static HandleSeacrh handleSeacrh;
     BluetoothDevice bdDevice;
-    BluetoothClass bdClass;
     ArrayList<BluetoothDevice> arrayListPairedBluetoothDevices;
     private ButtonClicked clicked;
     ListItemClickedonPaired listItemClickedonPaired;
@@ -54,6 +54,7 @@ public class BluetoothDemo extends Activity {
     ListItemClicked listItemClicked;
     private final String EXTRA_DEMOB = "demo";
     private Context context;
+    public static BluetoothSocket socket=null;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -191,11 +192,9 @@ public class BluetoothDemo extends Activity {
             System.out.println("méthode cliqué sur paired items");
             bdDevice = arrayListPairedBluetoothDevices.get(position);
             System.out.println("position clic ");
-            //BluetoothConnectionClient bluetoothConnectionClient = new BluetoothConnectionClient(bdDevice);
-            //bluetoothConnectionClient.start();
 
             BluetoothConnection bluetoothConnection = new BluetoothConnection(context) ;
-            bluetoothConnection.connect(bdDevice);
+            bluetoothConnection.connect(bluetoothConnection.getBTDevice());
 
             System.out.println(" Position méthode cliqué sur paired items");
 
@@ -261,6 +260,8 @@ public class BluetoothDemo extends Activity {
 
 
     class ButtonClicked implements OnClickListener {
+
+
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
@@ -276,9 +277,15 @@ public class BluetoothDemo extends Activity {
                     startActivity(intent);
                     break;
                 case R.id.buttonSuivant:
-                    Intent intent1 = new Intent(BluetoothDemo.this, Fragments.class);
-                    intent1.putExtra(EXTRA_DEMOB, 3);
-                    startActivity(intent1);
+                    if(BluetoothConnection.socket!=null && BluetoothConnection.socket.isConnected()){
+                        //Bundle b=new Bundle();
+                        socket=BluetoothConnection.socket;
+                        System.out.println(BluetoothConnection.socket.isConnected());
+                        Intent intent1 = new Intent(BluetoothDemo.this, Fragments.class);
+                        intent1.putExtra(EXTRA_DEMOB, 3);
+                    startActivity(intent1);}
+                    else
+                        System.out.println("non connect");
                     break;
                 default:
                     break;

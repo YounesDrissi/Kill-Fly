@@ -1,6 +1,7 @@
 package com.abdellah.pcsalon.myapplication;
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,19 +22,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.abdellah.pcsalon.myapplication.bluetooth.BluetoothConnection;
 import com.abdellah.pcsalon.myapplication.bluetooth.BluetoothDemo;
 import com.abdellah.pcsalon.myapplication.bluetooth.ScanDevices;
 import com.abdellah.pcsalon.myapplication.chrono.Chronometre;
 import com.abdellah.pcsalon.myapplication.dynamicGraph.DynamicGraphActivity;
 import com.abdellah.pcsalon.myapplication.gestionListeSpinner.AndroidSpinnerExampleActivity;
 
-
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Fragments extends AppCompatActivity {
 
-
+    public static final int STATE_CONNECTED = 3;
+    public static final int STATE_CONNECTING = 2;
+    public static final int STATE_LISTEN = 1;
+    public static final int STATE_NONE = 0;
     private static final String TAG = "MainActivity";
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -43,6 +52,11 @@ public class Fragments extends AppCompatActivity {
     private final static int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
 
     public static Context contex;
+
+    DataInputStream dataInputStream;
+    InputStream inputStream;
+    OutputStream outputStream;
+    BluetoothSocket bluetoothSocket;
 
 
     private Handler myHandler;
@@ -55,9 +69,25 @@ public class Fragments extends AppCompatActivity {
 
             //Log.d(TAG, "myRunnable yes...");
             if (debut) {
-                initialisationCordonnees();
-                debut = false;
+                boolean afficher = true;
+                while (afficher) {
+                    try {
+                        initialisationCordonnees();
+                        debut = false;
+                        afficher = false;
+                    } catch (Exception e) {
+                        System.out.println("rapide");
+
+                    }
+                }
             }
+            //////////////////////////////////
+            System.out.println("commencer receive");
+            int i = 0;
+            System.out.println("Reading ...");
+
+    
+            ///////////////////////////////
             i++;
             i = (i % 12);
             //System.out.println("i:" + i);
@@ -66,6 +96,7 @@ public class Fragments extends AppCompatActivity {
 
         }
     };
+    private BluetoothSocket socket;
 
 
     public void traiterBluetooth() {
@@ -83,8 +114,7 @@ public class Fragments extends AppCompatActivity {
             Intent enableBlueTooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBlueTooth, REQUEST_CODE_ENABLE_BLUETOOTH);
         } else if (intent != null && intent.getIntExtra("demo", 0) == 3) {
-        }
-        else{
+        } else {
             Intent intent1 = new Intent(Fragments.this, BluetoothDemo.class);
             startActivity(intent1);
         }
@@ -118,7 +148,6 @@ public class Fragments extends AppCompatActivity {
         contex = this;
 
         setContentView(R.layout.activity_main);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -130,8 +159,19 @@ public class Fragments extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
-        myHandler = new Handler();
-        myHandler.postDelayed(myRunnable, 1); // on redemande toute les 500ms
+
+        if (BluetoothDemo.socket != null && BluetoothDemo.socket.isConnected()) {
+            try {
+                this.socket = BluetoothDemo.socket;
+                this.dataInputStream = new DataInputStream(this.socket.getInputStream());
+                this.outputStream = this.socket.getOutputStream();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            myHandler = new Handler();
+            myHandler.postDelayed(myRunnable, 1); // on redemande toute les 500ms
+        }
+
         traiterBluetooth();
     }
 
@@ -139,22 +179,22 @@ public class Fragments extends AppCompatActivity {
 
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.target, 0, 0);
-        tabLayout.getTabAt(0).setCustomView(tabTwo);
+        tabLayout.getTabAt(1).setCustomView(tabTwo);
 
         TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.graphic, 0, 0);
-        tabLayout.getTabAt(1).setCustomView(tabThree);
+        tabLayout.getTabAt(2).setCustomView(tabThree);
 
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.clock_1, 0, 0);
-        tabLayout.getTabAt(2).setCustomView(tabOne);
+        tabLayout.getTabAt(0).setCustomView(tabOne);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFrag(new Chronometre(), "Chronomètre");
         adapter.addFrag(new TwoFragment(), "Kill-Fly");
         adapter.addFrag(new DynamicGraphActivity(), "Diagramme");
-        adapter.addFrag(new Chronometre(), "Chronomètre");
         viewPager.setAdapter(adapter);
     }
 

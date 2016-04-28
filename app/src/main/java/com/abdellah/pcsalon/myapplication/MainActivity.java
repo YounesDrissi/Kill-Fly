@@ -9,6 +9,8 @@ import android.widget.Button;
 import com.abdellah.pcsalon.myapplication.gestionListeSpinner.AndroidSpinnerExampleActivity;
 import com.abdellah.pcsalon.myapplication.historique.HisoriqueFormulaire;
 
+import org.opencv.android.OpenCVLoader;
+
 /**
  * Created by Younes on 31/01/2016.
  */
@@ -19,7 +21,13 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonTest = null;
     private Button buttonArchive = null;
     private final String EXTRA_MAIN="mainActivitePassage";
+    private OpenCVLoader openCVLoader;
 
+    static {
+        if(!OpenCVLoader.initDebug()){
+
+        }
+    }
 
     private View.OnClickListener clickListenercOMMENCER = new View.OnClickListener() {
         @Override
