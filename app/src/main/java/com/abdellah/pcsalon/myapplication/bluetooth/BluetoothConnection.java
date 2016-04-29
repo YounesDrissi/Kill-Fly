@@ -314,3 +314,4 @@ public class BluetoothConnection {
         return data;
     }
 }
+
