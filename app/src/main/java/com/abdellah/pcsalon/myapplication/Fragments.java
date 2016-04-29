@@ -374,3 +374,4 @@ public class Fragments extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 }
+
