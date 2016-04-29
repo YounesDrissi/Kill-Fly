@@ -10,7 +10,9 @@ import android.view.View;
 
 public class Cercle extends View {
 
+    private static Canvas convas;
     private Paint paint;
+    public  static int color=Color.RED;
 
     public Cercle(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -32,7 +34,7 @@ public class Cercle extends View {
     protected void onDraw(Canvas canvas) {
 
         this.paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        this.paint.setColor(Color.RED);
+        this.paint.setColor(color);
 
         float cx = getMeasuredWidth() / 2;
         float cy = getMeasuredHeight() / 2;
@@ -41,10 +43,19 @@ public class Cercle extends View {
         canvas.drawCircle(cx, cy, radius, paint);
 
         super.onDraw(canvas);
+        Cercle.convas=convas;
     }
 
     public void repaint(int c){
         this.paint.setColor(c);
     }
 
+    public static Canvas getConvas() {
+        return convas;
+    }
+
+    public void changerCouleur(Canvas canvas,int color) {
+        this.color=color;
+        this.draw(canvas);
+    }
 }

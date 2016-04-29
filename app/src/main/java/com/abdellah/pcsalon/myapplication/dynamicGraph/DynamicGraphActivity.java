@@ -1,6 +1,7 @@
 package com.abdellah.pcsalon.myapplication.dynamicGraph;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,16 +36,24 @@ public class DynamicGraphActivity extends Fragment {
 						e.printStackTrace();
 					}
 					Point p = MockData.getDataFromReceiver(i); // We got new data!
-					line.addNewPoints(p); // Add it to our graph
+			//		line.addNewPoints(p); // Add it to our graph
 					view.repaint();
 				}
 			}
 		};
-		thread.start();
+		//thread.start();
+	}
+
+	public LineGraph getLine() {
+		return line;
 	}
 
 
-
+	@Nullable
+	@Override
+	public GraphicalView getView() {
+		return view;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

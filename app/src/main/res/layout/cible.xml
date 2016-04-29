@@ -60,8 +60,7 @@
             android:id="@+id/direction"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_toRightOf="@+id/enregistrer"
             android:layout_toEndOf="@+id/enregistrer"
-            android:layout_marginLeft="10dp"/>
+            android:layout_toRightOf="@+id/enregistrer" />
     </RelativeLayout>
 </LinearLayout>

@@ -30,14 +30,14 @@
     <ListView
         android:id="@+id/listViewPaired"
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="130dp">
 
     </ListView>
 
     <ListView
         android:id="@+id/listViewDetected"
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="100dp">
     </ListView>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,15 +24,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.abdellah.pcsalon.myapplication.bluetooth.BluetoothConnection;
 import com.abdellah.pcsalon.myapplication.bluetooth.BluetoothDemo;
-import com.abdellah.pcsalon.myapplication.bluetooth.ScanDevices;
 import com.abdellah.pcsalon.myapplication.chrono.Chronometre;
 import com.abdellah.pcsalon.myapplication.dynamicGraph.DynamicGraphActivity;
+import com.abdellah.pcsalon.myapplication.dynamicGraph.Point;
 import com.abdellah.pcsalon.myapplication.gestionListeSpinner.AndroidSpinnerExampleActivity;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -39,10 +38,7 @@ import java.util.List;
 
 public class Fragments extends AppCompatActivity {
 
-    public static final int STATE_CONNECTED = 3;
-    public static final int STATE_CONNECTING = 2;
-    public static final int STATE_LISTEN = 1;
-    public static final int STATE_NONE = 0;
+
     private static final String TAG = "MainActivity";
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -53,16 +49,25 @@ public class Fragments extends AppCompatActivity {
 
     public static Context contex;
 
+    private TextView directionView;
+    public static ImageView v;
+    TextView densiteView;
     DataInputStream dataInputStream;
-    InputStream inputStream;
     OutputStream outputStream;
-    BluetoothSocket bluetoothSocket;
-
+    private BluetoothSocket socket;
 
     private Handler myHandler;
     private boolean debut = true;
     private int i = 0;
+
+    //donnees pour mettre a jour le graphe
+    public double speedVent=0;
+    public double directionVent=0;
+    public int couleur=Color.RED;
+
     private Runnable myRunnable = new Runnable() {
+
+
         @Override
         public void run() {
             // Code à éxécuter de façon périodique
@@ -73,7 +78,7 @@ public class Fragments extends AppCompatActivity {
                 while (afficher) {
                     try {
                         initialisationCordonnees();
-                        debut = false;
+
                         afficher = false;
                     } catch (Exception e) {
                         System.out.println("rapide");
@@ -81,22 +86,26 @@ public class Fragments extends AppCompatActivity {
                     }
                 }
             }
-            //////////////////////////////////
-            System.out.println("commencer receive");
-            int i = 0;
-            System.out.println("Reading ...");
+            if(!debut) {
+                i = i + 5;
 
-    
-            ///////////////////////////////
-            i++;
-            i = (i % 12);
-            //System.out.println("i:" + i);
-            update(i, i, i);
-            myHandler.postDelayed(this, 1000);
+                graphe.getLine().addNewPoints(new Point(i, (int) speedVent), (int) directionVent);
+                graphe.getView().repaint();
+
+            }else {
+                debut = false;
+            }
+
+            myHandler.postDelayed(myRunnable, 5000);
 
         }
     };
-    private BluetoothSocket socket;
+    private boolean premierAppel=true;
+    private DynamicGraphActivity graphe;
+    private Thread thread;
+
+
+
 
 
     public void traiterBluetooth() {
@@ -169,7 +178,40 @@ public class Fragments extends AppCompatActivity {
                 e.printStackTrace();
             }
             myHandler = new Handler();
-            myHandler.postDelayed(myRunnable, 1); // on redemande toute les 500ms
+            Handler handler=new Handler();
+            myHandler.postDelayed(myRunnable, 0); // on redemande toute les 500ms
+            Handler handlerView = new Handler() {
+
+
+                @Override
+                public void handleMessage(Message msg) {
+                    // Incrémenter la ProgressBar, on est bien dans la Thread de l'IHM
+                    directionVent=msg.getData().getDouble("tr");
+                    speedVent=msg.getData().getDouble("ws");
+                    couleur=msg.getData().getInt("couleur");
+                    try {
+                        directionView.setText("Intensité :" + directionVent);
+                        densiteView.setText("Direction :" + speedVent);
+                        v.setX(msg.getData().getFloat("x"));
+                        v.setY(msg.getData().getFloat("y"));
+                        Chronometre.getCercle().color = couleur;
+                        Chronometre.getCercle().invalidate();
+                    }catch (Exception e){
+
+                    }
+
+                    //maj du graphe
+                    //int temps=msg.getData().getInt("temp");
+
+
+
+                }
+            };
+            UpdateAffichage updateAffichage=new UpdateAffichage(this,handlerView );
+            thread=new Thread(updateAffichage);
+            thread.start();
+
+            //thread.start();
         }
 
         traiterBluetooth();
@@ -192,10 +234,25 @@ public class Fragments extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        graphe=new DynamicGraphActivity();
         adapter.addFrag(new Chronometre(), "Chronomètre");
         adapter.addFrag(new TwoFragment(), "Kill-Fly");
-        adapter.addFrag(new DynamicGraphActivity(), "Diagramme");
+        adapter.addFrag(graphe, "Diagramme");
         viewPager.setAdapter(adapter);
+    }
+
+    public void majDensite(int direction) {
+        System.out.println("change densite : "+direction);
+        directionView = (TextView) findViewById((R.id.direction));
+        directionView.setText("Direction : " + direction);
+    }
+
+    public void majIntensite(int intensite) {
+        System.out.println("change intensite : "+intensite);
+
+        densiteView = (TextView) findViewById((R.id.intensite));
+        densiteView.setText("Intensité/WS : " + intensite);
+
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -236,81 +293,11 @@ public class Fragments extends AppCompatActivity {
                 - xR - (1 / 2));
         TwoFragment.setyZero(findViewById(R.id.cible22Fin).getHeight() / 2
                 - yR + 3);
-    }
+        //initialisation de views
+        v = (ImageView) findViewById(R.id.reticule_client);
+         directionView = (TextView) findViewById((R.id.direction));
 
-    public void update(int direction, float distance, int intensite) {
-        //hight,y=946;with,x=1248k
-        distance = TwoFragment.getHuite();
-        try {
-            //  Log.d(TAG, "update yes...");
-            ImageView v = (ImageView) findViewById(R.id.reticule_client);
-            Chronometre.getCercle().repaint(Color.BLACK);
-            // float devise27=(TwoFragment.getxZero()/3);
-            switch (direction) {
-                case 0:
-                    v.setX(TwoFragment.getxZero());
-                    v.setY(TwoFragment.getyZero() - distance);
-                    break;
-                case 1:
-                    v.setX((float) (TwoFragment.getxZero() + ((distance / 2.15))));
-                    v.setY((float) (TwoFragment.getyZero() - ((distance / 1.11))));
-                    break;
-                case 2:
-                    v.setX((float) (TwoFragment.getxZero() + ((distance / 1.11))));
-                    v.setY((float) (TwoFragment.getyZero() - ((distance / 2.15))));
-                    break;
-                case 3:
-                    v.setX(TwoFragment.getxZero() + distance);
-                    v.setY(TwoFragment.getyZero());
-                    break;
-                case 4:
-                    v.setX((float) (TwoFragment.getxZero() + ((distance / 1.11))));
-                    v.setY((float) (TwoFragment.getyZero() + ((distance / 2.15))));
-                    break;
-                case 5:
-                    v.setX((float) (TwoFragment.getxZero() + ((distance / 2.15))));
-                    v.setY((float) (TwoFragment.getyZero() + ((distance / 1.11))));
-                    break;
-                case 6:
-                    v.setX(TwoFragment.getxZero());
-                    v.setY(TwoFragment.getyZero() + distance);
-                    break;
-                case 7:
-                    v.setX((float) (TwoFragment.getxZero() - ((distance / 2.15))));
-                    v.setY((float) (TwoFragment.getyZero() + ((distance / 1.11))));
-                    break;
-                case 8:
-                    v.setX((float) (TwoFragment.getxZero() - ((distance / 1.11))));
-                    v.setY((float) (TwoFragment.getyZero() + ((distance / 2.15))));
-                    break;
-                case 9:
-                    v.setX(TwoFragment.getxZero() - distance);
-                    v.setY(TwoFragment.getyZero());
-                    break;
-                case 10:
-                    v.setX((float) (TwoFragment.getxZero() - ((distance / 1.11))));
-                    v.setY((float) (TwoFragment.getyZero() - ((distance / 2.15))));
-                    break;
-                case 11:
-                    v.setX((float) (TwoFragment.getxZero() - ((distance / 2.15))));
-                    v.setY((float) (TwoFragment.getyZero() - ((distance / 1.11))));
-                    break;
-
-
-            }
-            TextView directionView = (TextView) findViewById((R.id.direction));
-            directionView.setText("Direction : " + direction);
-
-            TextView densiteView = (TextView) findViewById((R.id.intensite));
-            densiteView.setText("Intensité : " + intensite);
-           /* t.setText("x :" + v.getX() + ", y :" + v.getY() + "; withe :" + ((ImageView) findViewById(R.id.cible22Fin)).getWidth()
-                    + ", height : " + ((ImageView) findViewById(R.id.cible22Fin)).getHeight()
-                    + "i: "+distance);
-           // Log.d(TAG, "update yes...");*/
-        } catch (Exception e) {
-            //  Log.d(TAG, "update no...");
-            //update();
-        }
+         densiteView = (TextView) findViewById((R.id.intensite));
     }
 
 
@@ -324,12 +311,14 @@ public class Fragments extends AppCompatActivity {
     public void onStop() {
         Log.d(TAG, "Stopping...");
         super.onStop();
+
     }
 
     @Override
     protected void onPause() {
         Log.d(TAG, "pauseeeed...");
         super.onPause();
+
     }
 
     @Override
@@ -353,4 +342,35 @@ public class Fragments extends AppCompatActivity {
         return true;
     }
 
+    public TextView getDirectionView() {
+        return directionView;
+    }
+
+    public ImageView getV() {
+        return v;
+    }
+
+    public TextView getDensiteView() {
+        return densiteView;
+    }
+
+    public BluetoothSocket getSocket() {
+        return socket;
+    }
+
+    public DynamicGraphActivity getGraphe() {
+        return graphe;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            try {
+                BluetoothDemo.socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

@@ -1,13 +1,8 @@
 package com.abdellah.pcsalon.myapplication.bluetooth;
 
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Set;
-
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
@@ -20,14 +15,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
 import com.abdellah.pcsalon.myapplication.Fragments;
@@ -36,6 +29,11 @@ import com.abdellah.pcsalon.myapplication.R;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Set;
 
 public class BluetoothDemo extends Activity {
 
@@ -65,7 +63,7 @@ public class BluetoothDemo extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.searchdevice);
-
+        context=this;
         listViewDetected = (ListView) findViewById(R.id.listViewDetected);
         listViewPaired = (ListView) findViewById(R.id.listViewPaired);
         buttonSearch = (Button) findViewById(R.id.buttonSearch);
@@ -189,11 +187,31 @@ public class BluetoothDemo extends Activity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+            if(BluetoothDemo.socket != null) {
+                try {
+                    BluetoothDemo.socket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             System.out.println("méthode cliqué sur paired items");
             bdDevice = arrayListPairedBluetoothDevices.get(position);
             System.out.println("position clic ");
 
-            BluetoothConnection bluetoothConnection = new BluetoothConnection(context) ;
+            Handler handlerToast=new Handler() {
+
+                @Override
+                public void handleMessage(Message msg) {
+                    boolean c=msg.getData().getBoolean("connecte");
+                    if(c)
+                        Toast.makeText(context,"Kestrel connecté",Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(context,"Kestrel non connecté",Toast.LENGTH_SHORT).show();
+
+
+                }
+            };
+            BluetoothConnection bluetoothConnection = new BluetoothConnection(context,handlerToast) ;
             bluetoothConnection.connect(bluetoothConnection.getBTDevice());
 
             System.out.println(" Position méthode cliqué sur paired items");
@@ -284,8 +302,10 @@ public class BluetoothDemo extends Activity {
                         Intent intent1 = new Intent(BluetoothDemo.this, Fragments.class);
                         intent1.putExtra(EXTRA_DEMOB, 3);
                     startActivity(intent1);}
-                    else
-                        System.out.println("non connect");
+                    else {
+                        Toast toast = Toast.makeText(context, "Bluetooth non connecté réessayer", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
                     break;
                 default:
                     break;

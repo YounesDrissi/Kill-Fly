@@ -73,9 +73,9 @@ public class LineGraph {
 		return view;
 	}
 	
-	public void addNewPoints(Point p)
+	public void addNewPoints(Point p,int direction)
 	{
-		dataset.add(p.getX(), p.getY(),p.getX()+10);
+		dataset.add(p.getX(), p.getY(),direction);
 
 	}
 	

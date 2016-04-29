@@ -9,9 +9,10 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
-
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -20,7 +21,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
-
 /**
  * Created by Younes on 19/04/2016.
  */
@@ -35,7 +35,9 @@ public class BluetoothConnection {
     public static final int STATE_NONE = 0;
     private static final String TAG = "BTComm";
     private static final UUID uuid;
+    private static boolean connecter=false;
     private final BluetoothAdapter adapter;
+    private final Handler handler;
     private ConnectThread connectThread;
     private ConnectedThread connectedThread;
     private Context context;
@@ -44,12 +46,15 @@ public class BluetoothConnection {
     public static BluetoothSocket socket=null;
 
 
+
     private class ConnectThread extends Thread {
         private final BluetoothDevice device;
         private final BluetoothSocket socket;
+        private final Handler handler;
 
-        public ConnectThread(BluetoothDevice device) {
+        public ConnectThread(BluetoothDevice device,Handler handler) {
             this.device = device;
+            this.handler=handler;
             BluetoothSocket tmp = null;
             try {
                 tmp = device.createRfcommSocketToServiceRecord(BluetoothConnection.uuid);
@@ -77,6 +82,13 @@ public class BluetoothConnection {
                 BluetoothConnection.this.connected(this.socket, this.device);
             } catch (IOException e) {
                 try {
+                    Bundle messageBundle=new Bundle();
+                    Message myMessage;
+                    myMessage=this.handler.obtainMessage();
+                    messageBundle.putBoolean("connecte", false);
+                    myMessage.setData(messageBundle);
+                    this.handler.sendMessage(myMessage);
+
                     this.socket.close();
                 } catch (IOException e2) {
                     Log.e(BluetoothConnection.TAG, "unable to close() socket during connection failure", e2);
@@ -161,11 +173,11 @@ public class BluetoothConnection {
         }
 
         public void cancel() {
-            /*try {
+            try {
                 this.socket.close();
             } catch (IOException e) {
                 Log.e(BluetoothConnection.TAG, "close() of connect socket failed", e);
-            }*/
+            }
         }
     }
 
@@ -173,10 +185,11 @@ public class BluetoothConnection {
         uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
     }
 
-    public BluetoothConnection(Context context) {
+    public BluetoothConnection(Context context,Handler handler) {
         this.adapter = BluetoothAdapter.getDefaultAdapter();
         this.state = STATE_NONE;
         this.context = context;
+        this.handler=handler;
     }
 
     public int checkBluetooth() {
@@ -227,7 +240,7 @@ public class BluetoothConnection {
                 this.connectedThread.cancel();
                 this.connectedThread = null;
             }
-            this.connectThread = new ConnectThread(device);
+            this.connectThread = new ConnectThread(device,this.handler);
 
             this.connectThread.start();
             this.socket=this.connectThread.getSocket();
@@ -248,6 +261,13 @@ public class BluetoothConnection {
         //this.connectedThread.start();
         //this.handler.obtainMessage(STATE_CONNECTING).sendToTarget();
         setState(STATE_CONNECTED);
+        //
+        Bundle messageBundle=new Bundle();
+        Message myMessage;
+        myMessage=this.handler.obtainMessage();
+        messageBundle.putBoolean("connecte", true);
+        myMessage.setData(messageBundle);
+        this.handler.sendMessage(myMessage);
     }
 
     public synchronized void stop() {
